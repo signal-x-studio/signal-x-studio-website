@@ -1,3 +1,12 @@
 {
-  "rewrites": []
+  "rewrites": [
+    {
+      "source": "/agentic-commerce",
+      "destination": "https://agentic-recipe-viewer.vercel.app/agentic-commerce"
+    },
+    {
+      "source": "/agentic-commerce/:path*",
+      "destination": "https://agentic-recipe-viewer.vercel.app/agentic-commerce/:path*"
+    }
+  ]
 }
