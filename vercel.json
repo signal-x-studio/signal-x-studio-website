@@ -1,12 +1,14 @@
 {
   "rewrites": [
     {
-      "source": "/clear-cite/:path*",
-      "destination": "https://clear-cite.vercel.app/:path*"
+      "source": "/docs/:path*",
+      "has": [{"type": "host", "value": "clear-cite.signalx.studio"}],
+      "destination": "https://clear-cite-docs.vercel.app/:path*"
     },
     {
-      "source": "/clear-cite-docs/:path*",
-      "destination": "https://clear-cite-docs.vercel.app/:path*"
+      "source": "/:path*",
+      "has": [{"type": "host", "value": "clear-cite.signalx.studio"}],
+      "destination": "https://clear-cite.vercel.app/:path*"
     }
   ]
 }
