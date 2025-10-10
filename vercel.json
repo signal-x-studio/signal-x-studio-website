@@ -1,11 +1,11 @@
 {
   "rewrites": [
     {
-      "source": "/agentic-commerce",
+      "source": "/commerce-transformation-navigator",
       "destination": "https://commerce-transformation-navigator.vercel.app"
     },
     {
-      "source": "/agentic-commerce/:path*",
+      "source": "/commerce-transformation-navigator/:path*",
       "destination": "https://commerce-transformation-navigator.vercel.app/:path*"
     }
   ]
