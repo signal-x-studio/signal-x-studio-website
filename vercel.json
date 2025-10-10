@@ -2,11 +2,11 @@
   "rewrites": [
     {
       "source": "/agentic-commerce",
-      "destination": "https://agentic-recipe-viewer.vercel.app"
+      "destination": "https://commerce-transformation-navigator.vercel.app"
     },
     {
       "source": "/agentic-commerce/:path*",
-      "destination": "https://agentic-recipe-viewer.vercel.app/:path*"
+      "destination": "https://commerce-transformation-navigator.vercel.app/:path*"
     }
   ]
 }
