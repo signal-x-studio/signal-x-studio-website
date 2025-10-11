@@ -63,18 +63,18 @@
         .container {
             max-width: min(1600px, 95vw);
             margin: 0 auto;
-            padding: 6rem clamp(32px, 6vw, 96px) 4rem;
+            padding: clamp(3rem, 8vh, 5rem) clamp(32px, 5vw, 80px) clamp(2rem, 5vh, 3rem);
             position: relative;
             z-index: 1;
         }
 
         header {
-            margin-bottom: 4rem;
+            margin-bottom: clamp(2.5rem, 5vh, 4rem);
         }
 
         .logo {
             display: inline-block;
-            margin-bottom: 3rem;
+            margin-bottom: clamp(1.5rem, 3vh, 2.5rem);
             padding: 0.5rem 1rem;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -97,18 +97,18 @@
         }
 
         .subtitle {
-            font-size: 1.5rem;
+            font-size: clamp(1.25rem, 1.75vw, 1.5rem);
             line-height: 1.5;
             color: rgba(255, 255, 255, 0.7);
             font-weight: 400;
-            max-width: 600px;
+            max-width: min(800px, 90vw);
         }
 
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr));
-            gap: clamp(1.5rem, 3vw, 2.5rem);
-            margin-top: 4rem;
+            gap: clamp(1.5rem, 2.5vw, 2rem);
+            margin-top: clamp(2rem, 4vh, 3rem);
         }
 
         .project-card {
@@ -314,8 +314,8 @@
         }
 
         footer {
-            margin-top: 6rem;
-            padding-top: 2rem;
+            margin-top: clamp(3rem, 6vh, 5rem);
+            padding-top: clamp(1.5rem, 3vh, 2rem);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
             color: rgba(255, 255, 255, 0.4);
@@ -380,14 +380,36 @@
         @media (min-width: 1600px) {
             .container {
                 max-width: 1800px;
+                padding-top: clamp(3.5rem, 6vh, 4.5rem);
+                padding-bottom: clamp(2rem, 4vh, 3rem);
             }
 
             .projects-grid {
-                gap: 3rem;
+                gap: 2rem;
             }
 
             .project-card {
-                padding: 2.5rem;
+                padding: 2rem;
+            }
+
+            .subtitle {
+                max-width: 900px;
+            }
+        }
+
+        /* Extra-large viewports: prevent excessive spacing */
+        @media (min-height: 1000px) {
+            .container {
+                padding-top: max(3rem, 5vh);
+                padding-bottom: max(2rem, 3vh);
+            }
+
+            header {
+                margin-bottom: max(2.5rem, 4vh);
+            }
+
+            .logo {
+                margin-bottom: max(1.5rem, 2.5vh);
             }
         }
     </style>
