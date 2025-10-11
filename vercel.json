@@ -2,11 +2,22 @@
   "rewrites": [
     {
       "source": "/commerce-transformation-navigator",
-      "destination": "https://commerce-transformation-navigator.vercel.app"
+      "destination": "https://commerce-transformation-navigator.vercel.app/index.html"
     },
     {
       "source": "/commerce-transformation-navigator/:path*",
       "destination": "https://commerce-transformation-navigator.vercel.app/:path*"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/commerce-transformation-navigator/:path*",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
     }
   ]
 }
