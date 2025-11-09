@@ -875,7 +875,7 @@
                         </ul>
                         <footer>
                             <span>Status: Production Ready</span>
-                            <a href="https://match-flow.signalx.studio" data-analytics-id="cta-labs-matchflow">Join Beta</a>
+                            <a href="https://match-flow.vercel.app/" data-analytics-id="cta-labs-matchflow">Join Beta</a>
                         </footer>
                     </article>
                     <article class="card labs-card">
@@ -1004,8 +1004,10 @@
                     <h2 id="cta-heading">Ready to build signal?</h2>
                     <p>Start an AI visibility assessment or book time with Signal X Studio to map your Answer Intelligence roadmap.</p>
                     <div class="cta-group">
-                        <a class="btn btn-primary" href="mailto:collab@signalx.studio?subject=AI%20Visibility%20Assessment" data-analytics-id="cta-contact-email">Talk with the Studio</a>
-                        <a class="btn" href="https://cal.com/signalxstudio/30min" target="_blank" rel="noopener" data-analytics-id="cta-schedule">Schedule 30-Min Session</a>
+                        <a class="btn btn-primary" href="mailto:nino@signalx.studio?subject=AI%20Visibility%20Assessment" data-analytics-id="cta-contact-email">Talk with the Studio</a>
+                        <button class="btn" type="button" id="scheduleSessionButton" data-analytics-id="cta-schedule">
+                            Schedule 30-Min Session
+                        </button>
                     </div>
                 </div>
             </section>
@@ -1035,7 +1037,7 @@
                         <li><a href="https://aiq.signalx.studio/docs">Documentation</a></li>
                         <li><a href="https://signal-dispatch.signalx.studio">Signal Dispatch</a></li>
                         <li><a href="https://github.com/nino-chavez">GitHub</a></li>
-                        <li><a href="mailto:collab@signalx.studio">Contact</a></li>
+                        <li><a href="mailto:nino@signalx.studio">Contact</a></li>
                     </ul>
                 </nav>
                 <div class="footer-meta">
@@ -1071,6 +1073,72 @@
         } else {
             stickyCta.classList.add('visible');
         }
+
+        const scheduleSessionButton = document.getElementById('scheduleSessionButton');
+
+        const ensureCalEmbed = () => {
+            if (window.Cal) {
+                return Promise.resolve(window.Cal);
+            }
+
+            return new Promise((resolve, reject) => {
+                const existingScript = document.querySelector('script[data-cal-embed]');
+
+                if (existingScript) {
+                    existingScript.addEventListener('load', () => resolve(window.Cal));
+                    existingScript.addEventListener('error', reject);
+                    return;
+                }
+
+                const script = document.createElement('script');
+                script.src = 'https://app.cal.com/embed/embed.js';
+                script.async = true;
+                script.dataset.calEmbed = 'true';
+                script.onload = () => resolve(window.Cal);
+                script.onerror = reject;
+                document.head.appendChild(script);
+            });
+        };
+
+        scheduleSessionButton?.addEventListener('click', async (event) => {
+            event.preventDefault();
+
+            if (!scheduleSessionButton) {
+                window.open('https://cal.com/signalxstudio/30min', '_blank');
+                return;
+            }
+
+            scheduleSessionButton.disabled = true;
+            const originalLabel = scheduleSessionButton.textContent;
+            scheduleSessionButton.textContent = 'Opening Scheduler...';
+
+            try {
+                const Cal = await ensureCalEmbed();
+
+                if (typeof Cal === 'function') {
+                    Cal('ui', {
+                        theme: 'dark',
+                        styles: {
+                            branding: { brandColor: '#6b88ff' },
+                            text: { primaryColor: '#ffffff', secondaryColor: '#b9c0ff' },
+                            input: { backgroundColor: '#0f1325', textColor: '#ffffff' },
+                        },
+                    });
+
+                    Cal('open', {
+                        link: 'signalxstudio/30min',
+                    });
+                } else {
+                    window.open('https://cal.com/signalxstudio/30min', '_blank');
+                }
+            } catch (error) {
+                console.error('Failed to load Cal.com embed:', error);
+                window.open('https://cal.com/signalxstudio/30min', '_blank');
+            } finally {
+                scheduleSessionButton.disabled = false;
+                scheduleSessionButton.textContent = originalLabel || 'Schedule 30-Min Session';
+            }
+        });
 
         const labsNewsletterForm = document.getElementById('labsNewsletter');
         if (labsNewsletterForm) {
@@ -1183,7 +1251,7 @@
                 {
                     "@type": "ContactPoint",
                     "contactType": "Business Development",
-                    "email": "collab@signalx.studio"
+                    "email": "nino@signalx.studio"
                 }
             ]
         }
