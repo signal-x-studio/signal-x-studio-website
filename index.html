@@ -28,6 +28,17 @@
             --shadow-soft: 0 18px 60px rgba(8, 8, 16, 0.22);
             --container: min(1220px, 90vw);
             --transition: 220ms cubic-bezier(0.22, 1, 0.36, 1);
+            --radius-xs: 6px;
+            --radius-sm: 10px;
+            --radius-md: 14px;
+            --radius-lg: 18px;
+            --radius-pill: 999px;
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-md: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.35rem;
+            --text-heading: clamp(2.8rem, 6.5vw, 4.6rem);
         }
 
         * {
@@ -161,35 +172,52 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 0.55rem;
-            padding: 0.85rem 1.45rem;
-            border-radius: 999px;
+            gap: 0.5rem;
+            padding: 0.85rem 1.6rem;
+            border-radius: var(--radius-pill);
             border: 1px solid transparent;
-            background: rgba(255, 255, 255, 0.08);
-            color: #fff;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: var(--text-sm);
+            letter-spacing: 0.01em;
             text-decoration: none;
-            letter-spacing: 0.02em;
-            transition: var(--transition);
-        }
-
-        .btn:hover,
-        .btn:focus-visible {
-            transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.16);
+            transition: transform var(--transition), background var(--transition), border-color var(--transition), filter var(--transition);
         }
 
         .btn-primary {
             background: var(--gradient-primary);
-            border: 0;
-            color: #0f101b;
+            color: #05060c;
+            box-shadow: 0 10px 32px rgba(107, 136, 255, 0.42);
         }
 
         .btn-primary:hover,
         .btn-primary:focus-visible {
+            transform: translateY(-2px);
             filter: brightness(1.05);
-            color: #05060c;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.16);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .btn-secondary:hover,
+        .btn-secondary:focus-visible {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.14);
+            border-color: rgba(255, 255, 255, 0.32);
+        }
+
+        .btn-tertiary {
+            padding: 0.45rem 0;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.82);
+        }
+
+        .btn-tertiary:hover,
+        .btn-tertiary:focus-visible {
+            color: #ffffff;
         }
 
         main {
@@ -361,79 +389,85 @@
             color: rgba(255, 255, 255, 0.4);
         }
 
-        .badge-row {
+        .chip-row {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             margin-bottom: 1.1rem;
         }
 
-        .badge {
-            font-size: 0.75rem;
-            letter-spacing: 0.08em;
+        .chip {
+            font-size: var(--text-xs);
+            letter-spacing: 0.16em;
             text-transform: uppercase;
-            padding: 0.35rem 0.9rem;
-            border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            background: rgba(255, 255, 255, 0.05);
-            color: rgba(255, 255, 255, 0.65);
+            padding: 0.28rem 0.75rem;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.68);
         }
 
-        .card footer span,
-        .labs-card footer span,
-        .service-card footer span {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            padding: 0.52rem 1rem;
-            border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            background: rgba(255, 255, 255, 0.03);
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.85rem;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
+        .chip-tonal {
+            border-color: rgba(107, 136, 255, 0.35);
+            background: rgba(107, 136, 255, 0.12);
+            color: rgba(180, 200, 255, 0.92);
         }
 
-        .card footer,
-        .labs-card footer,
-        .service-card footer {
+        .card-footer {
             display: flex;
             justify-content: flex-start;
             flex-wrap: wrap;
-            gap: 12px 18px;
+            gap: 0.75rem 1.25rem;
             align-items: center;
-            padding-top: 0.95rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .card footer a,
-        .labs-card footer a,
-        .service-card footer a {
+        .status-chip {
             display: inline-flex;
             align-items: center;
-            gap: 0.4rem;
-            padding: 0.55rem 1.1rem;
-            border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            background: rgba(255, 255, 255, 0.05);
-            color: rgba(255, 255, 255, 0.88);
-            font-weight: 500;
-            letter-spacing: 0.01em;
+            gap: 0.35rem;
+            padding: 0.35rem 0.85rem;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(180, 200, 255, 0.25);
+            background: rgba(98, 126, 255, 0.18);
+            color: rgba(214, 223, 255, 0.94);
+            font-size: var(--text-xs);
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .footer-link {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            color: rgba(255, 255, 255, 0.85);
             text-decoration: none;
             transition: var(--transition);
         }
 
-        .card footer a:hover,
-        .card footer a:focus-visible,
-        .labs-card footer a:hover,
-        .labs-card footer a:focus-visible,
-        .service-card footer a:hover,
-        .service-card footer a:focus-visible {
-            border-color: rgba(255, 255, 255, 0.28);
-            background: rgba(255, 255, 255, 0.12);
+        .footer-link::after {
+            content: "↗";
+            font-size: 0.9em;
+            opacity: 0.7;
+        }
+
+        .footer-link:hover,
+        .footer-link:focus-visible {
+            color: #ffffff;
+        }
+
+        .meta-note {
+            font-size: var(--text-xs);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .card-footer a.footer-link:hover,
+        .card-footer a.footer-link:focus-visible {
             color: #ffffff;
         }
 
@@ -829,7 +863,6 @@
                     <a href="#labs">Labs</a>
                     <a href="#services">Services</a>
                     <a href="#process">Process</a>
-                    <a href="#signals">Signals</a>
                     <a href="#contact">Contact</a>
                 </div>
                 <a class="btn btn-primary" href="https://aiq.signalx.studio" data-analytics-id="cta-launch-aiq-nav">Launch AIQ</a>
@@ -849,7 +882,7 @@
                         </p>
                         <div class="cta-group">
                             <a class="btn btn-primary" href="https://aiq.signalx.studio" data-analytics-id="cta-launch-aiq-hero">Launch AIQ</a>
-                            <a class="btn" href="#contact" data-analytics-id="cta-talk-studio">Talk with the Studio</a>
+                            <a class="btn btn-secondary" href="#contact" data-analytics-id="cta-talk-studio">Talk with the Studio</a>
                         </div>
                     </div>
                     <div class="hero-meta">
@@ -873,10 +906,10 @@
                 <div class="section-kicker">Flagship Platform</div>
                 <div class="card-grid">
                     <article class="card" aria-labelledby="aiq-heading">
-                        <div class="badge-row">
-                            <span class="badge">AI Visibility</span>
-                            <span class="badge">Production</span>
-                            <span class="badge">Answer Intelligence</span>
+                        <div class="chip-row">
+                            <span class="chip chip-tonal">AI Visibility</span>
+                            <span class="chip">Production</span>
+                            <span class="chip">Answer Intelligence</span>
                         </div>
                         <h2 id="aiq-heading">AIQ: Answer Intelligence for Modern Brands.</h2>
                         <p>
@@ -890,9 +923,9 @@
                             <li>Structured data, crawler readiness, and authority scoring</li>
                             <li>ROI dashboards connecting AEO lifts to AI-sourced revenue</li>
                         </ul>
-                        <footer>
-                            <a href="https://aiq.signalx.studio" data-analytics-id="cta-explore-aiq">Explore Product</a>
-                            <a href="https://aiq.signalx.studio/docs" data-analytics-id="cta-aiq-docs">Documentation</a>
+                        <footer class="card-footer">
+                            <a class="footer-link" href="https://aiq.signalx.studio" data-analytics-id="cta-explore-aiq">Explore Product</a>
+                            <a class="footer-link" href="https://aiq.signalx.studio/docs" data-analytics-id="cta-aiq-docs">Documentation</a>
                         </footer>
                     </article>
                 </div>
@@ -943,9 +976,9 @@
                 </p>
                 <div class="card-grid" style="margin-top:2.4rem;">
                     <article class="card labs-card">
-                        <div class="badge-row">
-                            <span class="badge">Pilot</span>
-                            <span class="badge">Enterprise</span>
+                        <div class="chip-row">
+                            <span class="chip chip-tonal">Pilot</span>
+                            <span class="chip">Enterprise</span>
                         </div>
                         <h3>Commerce Transformation Navigator</h3>
                         <p>Interactive capability mapping that turns enterprise commerce chaos into clear modernization roadmaps.</p>
@@ -960,9 +993,9 @@
                         </footer>
                     </article>
                     <article class="card labs-card">
-                        <div class="badge-row">
-                            <span class="badge">Production</span>
-                            <span class="badge">Tournament Ops</span>
+                        <div class="chip-row">
+                            <span class="chip chip-tonal">Production</span>
+                            <span class="chip">Tournament Ops</span>
                         </div>
                         <h3>Match Flow</h3>
                         <p>Enterprise tournament platform built for elite volleyball events with real-time scoring, scheduling, and operations control.</p>
@@ -977,9 +1010,9 @@
                         </footer>
                     </article>
                     <article class="card labs-card">
-                        <div class="badge-row">
-                            <span class="badge">Framework</span>
-                            <span class="badge">Agentic</span>
+                        <div class="chip-row">
+                            <span class="chip chip-tonal">Framework</span>
+                            <span class="chip">Agentic</span>
                         </div>
                         <h3>Agentic Engineering System</h3>
                         <p>Reusable agent OS templates powering autonomous workflows, grounded in Intent-Driven Engineering practices.</p>
@@ -1000,7 +1033,7 @@
                             <label for="email" class="form-label">Email Address</label>
                             <input class="form-input" id="email" type="email" name="email" required placeholder="you@example.com" aria-describedby="labsNewsletterStatus">
                         </div>
-                        <button class="btn" type="submit" data-analytics-id="cta-follow-labs">Follow Labs Updates</button>
+                        <button class="btn btn-secondary" type="submit" data-analytics-id="cta-follow-labs">Follow Labs Updates</button>
                         <p id="labsNewsletterStatus" class="form-status" role="status" aria-live="polite"></p>
                     </form>
                 </div>
@@ -1105,7 +1138,7 @@
                     <p>Start an AI visibility assessment or book time with Signal X Studio to map your Answer Intelligence roadmap.</p>
                     <div class="cta-group">
                         <a class="btn btn-primary" href="mailto:nino@signalx.studio?subject=AI%20Visibility%20Assessment" data-analytics-id="cta-contact-email">Talk with the Studio</a>
-                        <button class="btn" type="button" id="scheduleSessionButton" data-analytics-id="cta-schedule">
+                        <button class="btn btn-secondary" type="button" id="scheduleSessionButton" data-analytics-id="cta-schedule">
                             Schedule 30-Min Session
                         </button>
                     </div>
