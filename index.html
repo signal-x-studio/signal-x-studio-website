@@ -571,40 +571,124 @@
             justify-content: center;
         }
 
-        footer {
+        .site-footer {
             border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding: clamp(32px, 4vw, 48px);
             background: rgba(4, 4, 9, 0.92);
+            padding: clamp(48px, 6vw, 72px) clamp(20px, 4vw, 32px) clamp(28px, 4vw, 40px);
         }
 
-        .footer-grid {
+        .footer-shell {
             max-width: var(--container);
             margin: 0 auto;
             display: grid;
-            gap: 32px;
+            gap: clamp(32px, 4vw, 48px);
+        }
+
+        .footer-top {
+            display: grid;
+            gap: clamp(24px, 4vw, 40px);
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         }
 
-        .footer-nav ul {
-            list-style: none;
+        .footer-brand {
             display: grid;
-            gap: 10px;
+            gap: 1rem;
         }
 
-        .footer-nav a {
-            text-decoration: none;
+        .footer-wordmark {
+            font-size: 0.78rem;
+            letter-spacing: 0.38rem;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-brand p {
             color: rgba(255, 255, 255, 0.62);
-            transition: var(--transition);
+            line-height: 1.7;
         }
 
-        .footer-nav a:hover,
-        .footer-nav a:focus-visible {
+        .footer-contact {
+            display: flex;
+            gap: 1.1rem;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.55);
+        }
+
+        .footer-contact a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-contact a:hover,
+        .footer-contact a:focus-visible {
             color: #ffffff;
         }
 
-        .footer-meta {
+        .footer-links {
+            display: grid;
+            gap: clamp(20px, 3vw, 32px);
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        }
+
+        .footer-column {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .footer-column h4 {
             font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.45);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.55);
+        }
+
+        .footer-column ul {
+            list-style: none;
+            display: grid;
+            gap: 0.55rem;
+            padding: 0;
+        }
+
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.72);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column a:hover,
+        .footer-column a:focus-visible {
+            color: #ffffff;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 1.4rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.48);
+        }
+
+        .footer-bottom a {
+            color: rgba(255, 255, 255, 0.72);
+            text-decoration: none;
+        }
+
+        .footer-bottom a:hover,
+        .footer-bottom a:focus-visible {
+            color: #ffffff;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.1rem;
+            flex-wrap: wrap;
+            align-items: center;
         }
 
         .sticky-cta {
@@ -636,29 +720,43 @@
 
         .newsletter {
             display: flex;
-            gap: 12px;
+            gap: 16px;
             flex-wrap: wrap;
+            align-items: flex-end;
         }
 
-        .newsletter input {
-            flex: 1 1 220px;
-            min-width: 190px;
-            padding: 0.85rem 1.1rem;
-            border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            background: rgba(255, 255, 255, 0.05);
-            color: #fff;
+        .form-field {
+            flex: 1 1 260px;
+            min-width: 220px;
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        .form-label {
+            font-size: 0.78rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.55);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: rgba(8, 10, 20, 0.8);
+            color: #ffffff;
             transition: var(--transition);
         }
 
-        .newsletter input::placeholder {
-            color: rgba(255, 255, 255, 0.45);
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
         }
 
-        .newsletter input:focus-visible {
+        .form-input:focus-visible {
             outline: none;
-            border-color: rgba(107, 136, 255, 0.45);
-            background: rgba(12, 14, 32, 0.7);
+            border-color: rgba(107, 136, 255, 0.6);
+            box-shadow: 0 0 0 3px rgba(107, 136, 255, 0.25);
         }
 
         .form-status {
@@ -856,9 +954,9 @@
                             <li>Scenario planning for phased transformation</li>
                             <li>Executive-ready roadmaps and narrative decks</li>
                         </ul>
-                        <footer>
-                            <span>Status: In Pilot</span>
-                            <a href="https://labs.signalx.studio/commerce-transformation-navigator" data-analytics-id="cta-labs-ctn">View Overview</a>
+                        <footer class="card-footer">
+                            <span class="status-pill" aria-label="Status: In Pilot">In Pilot</span>
+                            <a class="footer-link" href="https://labs.signalx.studio/commerce-transformation-navigator" data-analytics-id="cta-labs-ctn">View Overview</a>
                         </footer>
                     </article>
                     <article class="card labs-card">
@@ -873,9 +971,9 @@
                             <li>Live scoring dashboards for organizers, officials, and spectators</li>
                             <li>Capability-driven permissions with Supabase-backed realtime data</li>
                         </ul>
-                        <footer>
-                            <span>Status: Production Ready</span>
-                            <a href="https://match-flow.vercel.app/" data-analytics-id="cta-labs-matchflow">Join Beta</a>
+                        <footer class="card-footer">
+                            <span class="status-pill" aria-label="Status: Production Ready">Production Ready</span>
+                            <a class="footer-link" href="https://match-flow.vercel.app/" data-analytics-id="cta-labs-matchflow">Join Beta</a>
                         </footer>
                     </article>
                     <article class="card labs-card">
@@ -890,16 +988,18 @@
                             <li>Design system alignment for AI-native interfaces</li>
                             <li>Reference implementations for rapid deployment</li>
                         </ul>
-                        <footer>
-                            <span>Status: Available</span>
-                            <a href="https://github.com/nino-chavez/agentic-engineering-system" data-analytics-id="cta-labs-agentic">Explore Framework</a>
+                        <footer class="card-footer">
+                            <span class="status-pill" aria-label="Status: Available">Available</span>
+                            <a class="footer-link" href="https://github.com/nino-chavez/agentic-engineering-system" data-analytics-id="cta-labs-agentic">Explore Framework</a>
                         </footer>
                     </article>
                 </div>
                 <div style="margin-top:2rem;">
                     <form id="labsNewsletter" class="newsletter" novalidate>
-                        <label for="email" class="visually-hidden">Email</label>
-                        <input id="email" type="email" name="email" required placeholder="Join the labs signal — enter your email" aria-describedby="labsNewsletterStatus">
+                        <div class="form-field">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input class="form-input" id="email" type="email" name="email" required placeholder="you@example.com" aria-describedby="labsNewsletterStatus">
+                        </div>
                         <button class="btn" type="submit" data-analytics-id="cta-follow-labs">Follow Labs Updates</button>
                         <p id="labsNewsletterStatus" class="form-status" role="status" aria-live="polite"></p>
                     </form>
@@ -922,9 +1022,9 @@
                             <li>Crawlability + structured data audit</li>
                             <li>Prioritized roadmap for visibility lifts</li>
                         </ul>
-                        <footer>
-                            <span>Timeline · 4–6 weeks</span>
-                            <a href="#contact" data-analytics-id="cta-starter">Start Assessment</a>
+                        <footer class="card-footer">
+                            <span class="meta-note">Timeline · 4–6 weeks</span>
+                            <a class="footer-link" href="#contact" data-analytics-id="cta-starter">Start Assessment</a>
                         </footer>
                     </article>
                     <article class="service-card highlight">
@@ -936,9 +1036,9 @@
                             <li>Structured data implementation + AI crawler fixes</li>
                             <li>ROI tracking and executive reporting</li>
                         </ul>
-                        <footer>
-                            <span>Timeline · 8–12 weeks</span>
-                            <a href="#contact" data-analytics-id="cta-growth">Schedule Conversation</a>
+                        <footer class="card-footer">
+                            <span class="meta-note">Timeline · 8–12 weeks</span>
+                            <a class="footer-link" href="#contact" data-analytics-id="cta-growth">Schedule Conversation</a>
                         </footer>
                     </article>
                     <article class="service-card">
@@ -950,9 +1050,9 @@
                             <li>Custom dashboards and automation pipelines</li>
                             <li>On-going AIQ stewardship and revenue attribution</li>
                         </ul>
-                        <footer>
-                            <span>Timeline · 3–6 months</span>
-                            <a href="#contact" data-analytics-id="cta-enterprise">Plan Engagement</a>
+                        <footer class="card-footer">
+                            <span class="meta-note">Timeline · 3–6 months</span>
+                            <a class="footer-link" href="#contact" data-analytics-id="cta-enterprise">Plan Engagement</a>
                         </footer>
                     </article>
                 </div>
@@ -1013,36 +1113,53 @@
             </section>
         </main>
 
-        <footer>
-            <div class="footer-grid">
-                <div>
-                    <a href="#top" class="nav-logo" style="font-size:0.8rem;">Signal X Studio</a>
-                    <p style="margin-top:1rem; color:rgba(255,255,255,0.55); max-width:30ch;">
-                        © Signal X Studio. Built with Intent-Driven Engineering.
-                    </p>
+        <footer class="site-footer">
+            <div class="footer-shell">
+                <div class="footer-top">
+                    <div class="footer-brand">
+                        <span class="footer-wordmark">Signal X Studio</span>
+                        <p>Operator-grade infrastructure for AI visibility, answer intelligence, and revenue-backed transformation.</p>
+                        <div class="footer-contact">
+                            <a href="mailto:nino@signalx.studio">nino@signalx.studio</a>
+                            <span>Remote-first · Partnering globally</span>
+                        </div>
+                    </div>
+                    <div class="footer-links">
+                        <div class="footer-column" aria-labelledby="footer-platforms">
+                            <h4 id="footer-platforms">Platforms</h4>
+                            <ul>
+                                <li><a href="https://aiq.signalx.studio">AIQ Platform</a></li>
+                                <li><a href="#labs">Signal X Labs</a></li>
+                                <li><a href="https://match-flow.vercel.app/">Match Flow</a></li>
+                                <li><a href="https://github.com/nino-chavez/agentic-engineering-system">Agentic Engineering System</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-column" aria-labelledby="footer-programs">
+                            <h4 id="footer-programs">Programs</h4>
+                            <ul>
+                                <li><a href="#services">Signal Starter</a></li>
+                                <li><a href="#services">Growth Engagement</a></li>
+                                <li><a href="#services">Enterprise Transformation</a></li>
+                                <li><a href="#process">Intent-Driven Process</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-column" aria-labelledby="footer-connect">
+                            <h4 id="footer-connect">Connect</h4>
+                            <ul>
+                                <li><a href="mailto:nino@signalx.studio">Email</a></li>
+                                <li><a href="https://www.linkedin.com/in/ninochavez">LinkedIn</a></li>
+                                <li><a href="https://github.com/nino-chavez">GitHub</a></li>
+                                <li><a href="#labs">Labs Newsletter</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <nav class="footer-nav" aria-label="Footer">
-                    <h4 style="margin-bottom:0.8rem; font-weight:600;">Navigation</h4>
-                    <ul>
-                        <li><a href="#aiq">Product</a></li>
-                        <li><a href="#labs">Labs</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#process">Process</a></li>
-                        <li><a href="#signals">Signals</a></li>
-                    </ul>
-                </nav>
-                <nav class="footer-nav" aria-label="Resources">
-                    <h4 style="margin-bottom:0.8rem; font-weight:600;">Resources</h4>
-                    <ul>
-                        <li><a href="https://aiq.signalx.studio/docs">Documentation</a></li>
-                        <li><a href="https://signal-dispatch.signalx.studio">Signal Dispatch</a></li>
-                        <li><a href="https://github.com/nino-chavez">GitHub</a></li>
-                        <li><a href="mailto:nino@signalx.studio">Contact</a></li>
-                    </ul>
-                </nav>
-                <div class="footer-meta">
-                    <p>Vercel-hosted. Analytics instrumented via event data attributes.</p>
-                    <p style="margin-top:0.65rem;">Privacy · Terms available upon request.</p>
+                <div class="footer-bottom">
+                    <p>© Signal X Studio. Built with Intent-Driven Engineering.</p>
+                    <div class="footer-bottom-links">
+                        <span>Privacy & Terms available on request.</span>
+                        <a href="mailto:nino@signalx.studio">nino@signalx.studio</a>
+                    </div>
                 </div>
             </div>
         </footer>
