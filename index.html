@@ -298,32 +298,35 @@
         .card {
             position: relative;
             padding: clamp(24px, 3vw, 32px);
-            border-radius: 18px;
-            background: var(--surface);
-            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: linear-gradient(165deg, rgba(12, 14, 28, 0.82), rgba(8, 9, 18, 0.72));
+            border: 1px solid rgba(107, 136, 255, 0.12);
+            box-shadow: 0 22px 60px rgba(6, 7, 14, 0.35);
             overflow: hidden;
-            transition: var(--transition);
+            transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+            backdrop-filter: blur(14px);
         }
 
-        .card::after {
+        .card::before {
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), transparent 60%);
+            background: radial-gradient(circle at top right, rgba(107, 136, 255, 0.16), transparent 55%);
             opacity: 0;
-            transition: var(--transition);
+            transition: opacity var(--transition);
             pointer-events: none;
         }
 
         .card:hover,
         .card:focus-within {
-            transform: translateY(-6px);
-            border-color: var(--border-strong);
+            transform: translateY(-8px);
+            border-color: rgba(107, 136, 255, 0.28);
+            box-shadow: 0 28px 75px rgba(10, 14, 32, 0.42);
         }
 
-        .card:hover::after,
-        .card:focus-within::after {
-            opacity: 1;
+        .card:hover::before,
+        .card:focus-within::before {
+            opacity: 0.85;
         }
 
         .card h3 {
@@ -376,6 +379,22 @@
             color: rgba(255, 255, 255, 0.65);
         }
 
+        .card footer span,
+        .labs-card footer span,
+        .service-card footer span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.52rem 1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.03);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
         .card footer,
         .labs-card footer,
         .service-card footer {
@@ -400,7 +419,7 @@
             border-radius: 999px;
             border: 1px solid rgba(255, 255, 255, 0.16);
             background: rgba(255, 255, 255, 0.05);
-            color: rgba(255, 255, 255, 0.82);
+            color: rgba(255, 255, 255, 0.88);
             font-weight: 500;
             letter-spacing: 0.01em;
             text-decoration: none;
@@ -629,10 +648,32 @@
             border: 1px solid rgba(255, 255, 255, 0.12);
             background: rgba(255, 255, 255, 0.05);
             color: #fff;
+            transition: var(--transition);
         }
 
         .newsletter input::placeholder {
             color: rgba(255, 255, 255, 0.45);
+        }
+
+        .newsletter input:focus-visible {
+            outline: none;
+            border-color: rgba(107, 136, 255, 0.45);
+            background: rgba(12, 14, 32, 0.7);
+        }
+
+        .form-status {
+            width: 100%;
+            margin-top: 0.6rem;
+            font-size: 0.85rem;
+            letter-spacing: 0.02em;
+        }
+
+        .form-status.success {
+            color: rgba(144, 236, 181, 0.9);
+        }
+
+        .form-status.error {
+            color: rgba(255, 148, 148, 0.9);
         }
 
         @media (max-width: 960px) {
@@ -856,11 +897,11 @@
                     </article>
                 </div>
                 <div style="margin-top:2rem;">
-                    <form class="newsletter" action="https://buttondown.email/api/emails/embed-subscribe/signalxstudio" method="post" target="_blank">
+                    <form id="labsNewsletter" class="newsletter" novalidate>
                         <label for="email" class="visually-hidden">Email</label>
-                        <input id="email" type="email" name="email" required placeholder="Join the labs signal — enter your email">
-                        <input type="hidden" name="tag" value="labs-updates">
+                        <input id="email" type="email" name="email" required placeholder="Join the labs signal — enter your email" aria-describedby="labsNewsletterStatus">
                         <button class="btn" type="submit" data-analytics-id="cta-follow-labs">Follow Labs Updates</button>
+                        <p id="labsNewsletterStatus" class="form-status" role="status" aria-live="polite"></p>
                     </form>
                 </div>
             </section>
@@ -1029,6 +1070,62 @@
             observer.observe(hero);
         } else {
             stickyCta.classList.add('visible');
+        }
+
+        const labsNewsletterForm = document.getElementById('labsNewsletter');
+        if (labsNewsletterForm) {
+            const emailInput = labsNewsletterForm.querySelector('input[type="email"]');
+            const submitButton = labsNewsletterForm.querySelector('button[type="submit"]');
+            const statusEl = document.getElementById('labsNewsletterStatus');
+
+            const setStatus = (message, type) => {
+                if (!statusEl) return;
+                statusEl.textContent = message;
+                statusEl.classList.remove('success', 'error');
+                if (type) {
+                    statusEl.classList.add(type);
+                }
+            };
+
+            labsNewsletterForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                const email = emailInput?.value.trim();
+                if (!email) {
+                    setStatus('Enter your email to join the labs signal.', 'error');
+                    emailInput?.focus();
+                    return;
+                }
+
+                try {
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'Submitting...';
+                    setStatus('Signing you up for labs updates...', undefined);
+
+                    const response = await fetch('/api/labs-subscribe', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ email }),
+                    });
+
+                    const result = await response.json().catch(() => ({}));
+
+                    if (!response.ok) {
+                        const errorMessage = result?.error || 'Unable to subscribe right now. Please try again soon.';
+                        throw new Error(errorMessage);
+                    }
+
+                    setStatus('You’re on the list. Expect the next labs signal soon.', 'success');
+                    labsNewsletterForm.reset();
+                } catch (error) {
+                    setStatus(error instanceof Error ? error.message : 'Something went wrong. Try again later.', 'error');
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Follow Labs Updates';
+                }
+            });
         }
     </script>
     <script type="application/ld+json">
