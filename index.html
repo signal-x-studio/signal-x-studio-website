@@ -1075,6 +1075,44 @@
         }
 
         const scheduleSessionButton = document.getElementById('scheduleSessionButton');
+        const CAL_USERNAME = 'signalxstudio';
+        let cachedEventTypeSlug = null;
+        let eventTypeRequest = null;
+
+        const fetchPrimaryEventTypeSlug = async () => {
+            if (cachedEventTypeSlug) {
+                return cachedEventTypeSlug;
+            }
+
+            if (!eventTypeRequest) {
+                eventTypeRequest = fetch('/api/cal-event-types')
+                    .then(async (response) => {
+                        if (!response.ok) {
+                            const errorResult = await response.json().catch(() => ({}));
+                            const message = errorResult?.error || 'Unable to load scheduling availability.';
+                            throw new Error(message);
+                        }
+
+                        return response.json();
+                    })
+                    .catch((error) => {
+                        console.error('Failed to fetch Cal.com event types:', error);
+                        eventTypeRequest = null;
+                        throw error;
+                    });
+            }
+
+            const data = await eventTypeRequest;
+            const eventTypes = data?.eventTypes || [];
+            const primaryEvent = eventTypes.find((eventType) => Boolean(eventType?.slug)) || eventTypes[0];
+
+            if (!primaryEvent?.slug) {
+                throw new Error('No active event types available right now.');
+            }
+
+            cachedEventTypeSlug = primaryEvent.slug;
+            return cachedEventTypeSlug;
+        };
 
         const ensureCalEmbed = () => {
             if (window.Cal) {
@@ -1116,6 +1154,8 @@
                 const Cal = await ensureCalEmbed();
 
                 if (typeof Cal === 'function') {
+                    const slug = await fetchPrimaryEventTypeSlug();
+
                     Cal('ui', {
                         theme: 'dark',
                         styles: {
@@ -1126,14 +1166,17 @@
                     });
 
                     Cal('open', {
-                        link: 'signalxstudio/30min',
+                        link: `${CAL_USERNAME}/${slug}`,
                     });
                 } else {
-                    window.open('https://cal.com/signalxstudio/30min', '_blank');
+                    const slug = await fetchPrimaryEventTypeSlug().catch(() => null);
+                    const target = slug ? `https://cal.com/${CAL_USERNAME}/${slug}` : `https://cal.com/${CAL_USERNAME}`;
+                    window.open(target, '_blank');
                 }
             } catch (error) {
-                console.error('Failed to load Cal.com embed:', error);
-                window.open('https://cal.com/signalxstudio/30min', '_blank');
+                console.error('Failed to load Cal.com scheduler:', error);
+                const fallbackUrl = `https://cal.com/${CAL_USERNAME}`;
+                window.open(fallbackUrl, '_blank');
             } finally {
                 scheduleSessionButton.disabled = false;
                 scheduleSessionButton.textContent = originalLabel || 'Schedule 30-Min Session';
