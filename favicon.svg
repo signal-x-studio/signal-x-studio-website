@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="Signal X Studio">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="50%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect x="8" y="8" width="112" height="112" rx="24" fill="#0a0a0f"/>
+  <!-- Signal X mark -->
+  <path d="M40 36 L64 64 L40 92" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M88 36 L64 64 L88 92" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Signal waves emanating from center -->
+  <circle cx="64" cy="64" r="8" fill="url(#g)"/>
+  <circle cx="64" cy="64" r="16" fill="none" stroke="url(#g)" stroke-width="2" opacity="0.6"/>
+  <circle cx="64" cy="64" r="24" fill="none" stroke="url(#g)" stroke-width="2" opacity="0.4"/>
+  <!-- Intelligence indicator -->
+  <circle cx="100" cy="28" r="6" fill="#22d3ee"/>
+</svg>
