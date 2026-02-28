@@ -1,12 +1,3 @@
 {
-  "rewrites": [
-    {
-      "source": "/commerce-transformation-navigator",
-      "destination": "https://commerce-transformation-navigator.vercel.app"
-    },
-    {
-      "source": "/commerce-transformation-navigator/:path+",
-      "destination": "https://commerce-transformation-navigator.vercel.app/:path+"
-    }
-  ]
+  "rewrites": []
 }
