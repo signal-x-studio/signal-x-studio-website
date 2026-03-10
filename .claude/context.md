@@ -1,85 +1,91 @@
-# Signal X Studio Gateway
+# Signal X Studio — Holding Company Website
 
 ## Project Overview
 
-Lightweight Vercel gateway that serves as a landing page directory for Signal X Studio services.
+Single-page holding company website for Signal X Studio, LLC. Serves as the gateway to all 7 brands operated under the LLC.
 
 ## Tech Stack
 
-- **Framework:** Static HTML
-- **Deployment:** Vercel
-- **Routing:** Vercel rewrites (vercel.json)
+- **Framework:** Static HTML (no build step)
+- **Typography:** Space Grotesk (display), Inter (body), JetBrains Mono (mono)
+- **Deployment:** Vercel (auto-deploy via GitHub push)
+- **APIs:** Cal.com (scheduling), Resend (newsletter)
 
-## Project Structure
+## Design System
 
-```
-signalx-labs-gateway/
-├── index.html       # Landing page with app directory
-├── vercel.json      # Routing configuration
-└── .git/            # Git repository
-```
+### Colors
+- Background: `#05050a` (deep void)
+- Accent: `#6b88ff` (Signal X blue)
+- Secondary: `#ff6dd8` (magenta)
+- Per-brand card accents on hover via `--card-accent` and `data-brand` attribute
+
+### Brand Colors
+| Brand | Color | CSS Variable |
+|-------|-------|-------------|
+| Rally HQ | `#6366f1` | `--brand-rallyhq` |
+| Let's Pepper | `#f97316` | `--brand-letspepper` |
+| 630 Volleyball | `#3b82f6` | `--brand-630` |
+| Flickday Media | `#facc15` | `--brand-flickday` |
+| Nino Chavez | `#ff6dd8` | `--brand-nino` |
+| VolleyRX | `#22c55e` | `--brand-volleyrx` |
+| Zero Specs | `#00fff2` | `--brand-zerospecs` |
+
+### Typography
+- Display: Space Grotesk (700)
+- Body: Inter (400, 500, 600)
+- Mono: JetBrains Mono (400) — used for kickers, labels, tech pills
+
+## Page Structure
+
+1. **Hero** — Holding company thesis ("One entity. Seven brands.")
+2. **Brands** — 4 groups: Sports & Events, Infrastructure & SaaS, Media & Creative, R&D
+3. **Operations** — Tech stack + operating model values
+4. **Founder** — Nino Chavez bio + links
+5. **Contact** — Email CTA + Cal.com scheduling
+6. **Footer** — Brand links by category, LLC legal text
+
+## Brands (7 DBAs)
+
+| Brand | Category | URL |
+|-------|----------|-----|
+| Let's Pepper | Sports & Events | letspepper.com |
+| 630 Volleyball | Sports & Events | 630volleyball.app |
+| Rally HQ | Infrastructure & SaaS | rallyhq.app |
+| VolleyRX | Infrastructure & SaaS | volleyrx.com |
+| Flickday Media | Media & Creative | flickdaymedia.com |
+| Nino Chavez | Media & Creative | ninochavez.co |
+| Zero Specs | R&D | zerospecs.app |
 
 ## Domains
 
-### Production
-- `signalx.studio` - Primary domain
-- `www.signalx.studio` - WWW subdomain
+- Primary: `signalx.studio`
+- Redirect: `signalxstudio.com` → `signalx.studio` (Cloudflare)
+- Vercel: `signalx-labs-gateway.vercel.app`
 
-### Vercel
-- `signalx-labs-gateway.vercel.app` - Auto-generated
+## Environment Variables
 
-## Current Routing
+- `CAL_API_KEY` — Cal.com API token
+- `CAL_API_BASE_URL` — defaults to `https://api.cal.com/v2`
+- `CAL_USERNAME` — defaults to `signalxstudio`
+- `RESEND_API_KEY` — Resend email service
+- `RESEND_LABS_AUDIENCE_ID` — Resend audience ID
 
-The gateway currently only serves the landing page. All app-specific domains are handled directly by their respective projects.
+## File Structure
 
-### Landing Page Serves:
-- `signalx.studio` → Landing page directory
-- `www.signalx.studio` → Landing page directory
-
-### Direct Project Routing (not through gateway):
-- `clear-cite.signalx.studio` → clear-cite project (direct)
-
-## DNS Configuration
-
-**Provider:** Squarespace
-**Domain:** signalx.studio
-
-**Records:**
-- `@ → 76.76.21.21` (A record)
-- `www → cname.vercel-dns.com` (CNAME)
-- `clear-cite → cname.vercel-dns.com` (CNAME)
-
-## Related Projects
-
-- **Clear Cite App:** `~/Workspace/02-local-dev/apps/clear-cite`
-- **Clear Cite Docs:** `~/Workspace/02-local-dev/apps/clear-cite-docs`
-
-## Git Repository
-
-- **Remote:** `git@github.com:signal-x-studio/signalx-labs-gateway.git`
-- **Branch:** `main`
-- **Auto-deploy:** Yes (Vercel GitHub integration)
-
-## Common Tasks
-
-### Update Landing Page
-1. Edit `index.html`
-2. Commit and push to GitHub
-3. Vercel auto-deploys
-
-### Modify Routing
-1. Edit `vercel.json`
-2. Test routing logic
-3. Commit and push
-4. Force new deployment if edge cache is stale: `vercel --prod --force --yes`
-
-### Clear Edge Cache
-```bash
-vercel --prod --force --yes
+```
+signal-x-studio-website/
+├── index.html           # Single-page holding company site
+├── favicon.svg          # Signal X mark
+├── vercel.json          # Deployment config
+├── api/
+│   ├── cal-event-types.js    # Cal.com scheduling
+│   └── labs-subscribe.js     # Newsletter subscription
+└── .claude/
+    └── context.md       # This file
 ```
 
-## Notes
+## Git
 
-- Gateway is minimal by design - just a landing page
-- Most complexity moved to individual projects
-- Avoid using gateway for proxying (causes caching issues)
+- Remote: `git@github.com:signal-x-studio/signalx-labs-gateway.git`
+- Branch: `main`
+- Auto-deploy on push
