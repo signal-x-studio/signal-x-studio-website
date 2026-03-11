@@ -49,9 +49,9 @@ Single-page holding company website for Signal X Studio, LLC. Serves as the gate
 | Brand | Category | URL |
 |-------|----------|-----|
 | Let's Pepper | Sports & Events | letspepper.com |
-| 630 Volleyball | Sports & Events | 630volleyball.app |
+| VolleyRX | Sports & Events | volleyrx.com |
 | Rally HQ | Infrastructure & SaaS | rallyhq.app |
-| VolleyRX | Infrastructure & SaaS | volleyrx.com |
+| 630 Volleyball | Infrastructure & SaaS | 630volleyball.app |
 | Flickday Media | Media & Creative | flickdaymedia.com |
 | Nino Chavez | Media & Creative | ninochavez.co |
 | Zero Specs | R&D | zerospecs.app |
