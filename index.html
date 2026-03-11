@@ -10,91 +10,763 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://signalx.studio">
     <meta property="og:image" content="https://signalx.studio/og-image.png">
-    <meta name="theme-color" content="#05050a">
+    <meta name="theme-color" content="#08080c">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             color-scheme: dark;
-
-            /* Background */
-            --bg: #05050a;
-            --bg-surface: #0c0c14;
-            --bg-elevated: #12121e;
-
-            /* Borders */
-            --border: rgba(255, 255, 255, 0.08);
-            --border-strong: rgba(255, 255, 255, 0.18);
-
-            /* Text */
-            --text-primary: rgba(255, 255, 255, 0.92);
-            --text-secondary: rgba(255, 255, 255, 0.62);
-            --text-muted: rgba(255, 255, 255, 0.38);
-
-            /* Accent */
+            --bg: #08080c;
+            --bg-surface: #0e0e14;
+            --border: #1a1a24;
+            --border-hover: #2a2a38;
+            --text-1: #e8e8ed;
+            --text-2: #9090a0;
+            --text-3: #585868;
             --accent: #6b88ff;
-            --accent-hover: #8da3ff;
-            --accent-glow: rgba(107, 136, 255, 0.25);
-            --accent-2: #ff6dd8;
-
-            /* Brand colors */
-            --brand-rallyhq: #6366f1;
-            --brand-letspepper: #f97316;
-            --brand-630: #3b82f6;
-            --brand-flickday: #facc15;
-            --brand-nino: #ff6dd8;
-            --brand-volleyrx: #22c55e;
-            --brand-zerospecs: #00fff2;
-
-            /* Gradients */
-            --gradient-primary: linear-gradient(135deg, rgba(107, 136, 255, 0.85), rgba(255, 109, 216, 0.85));
-            --gradient-text: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.65) 100%);
-
-            /* Shadows */
-            --shadow-soft: 0 18px 60px rgba(8, 8, 16, 0.22);
-
-            /* Layout */
-            --container: min(1220px, 90vw);
-
-            /* Motion */
-            --transition: 220ms cubic-bezier(0.22, 1, 0.36, 1);
-            --transition-slow: 400ms cubic-bezier(0.22, 1, 0.36, 1);
-
-            /* Radii */
-            --radius-sm: 0.5rem;
-            --radius-md: 0.75rem;
-            --radius-lg: 1rem;
-            --radius-xl: 1.25rem;
-            --radius-pill: 999px;
-
-            /* Typography */
-            --font-display: "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
-            --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", monospace;
-
-            --text-xs: 0.75rem;
-            --text-sm: 0.875rem;
-            --text-md: 1rem;
-            --text-lg: 1.125rem;
-            --text-xl: 1.35rem;
+            --font-display: "Space Grotesk", system-ui, sans-serif;
+            --font-body: "Inter", system-ui, sans-serif;
+            --font-mono: "JetBrains Mono", monospace;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: var(--font-body);
             background: var(--bg);
-            color: #fff;
+            color: var(--text-1);
             min-height: 100vh;
-            position: relative;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        /* ─── Layout ─── */
+
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding-left: clamp(20px, 5vw, 48px);
+            padding-right: clamp(20px, 5vw, 48px);
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ─── Header ─── */
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(8, 8, 12, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .site-header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 56px;
+        }
+
+        .nav-wordmark {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.88rem;
+            letter-spacing: 0.08em;
+            color: var(--text-1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 0.85rem;
+            color: var(--text-2);
+            transition: color 200ms;
+        }
+
+        .nav-links a:hover { color: var(--text-1); }
+
+        /* ─── Hero ─── */
+
+        .hero {
+            padding: clamp(80px, 14vh, 160px) 0 clamp(64px, 10vh, 120px);
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.6rem, 6vw, 4.2rem);
+            font-weight: 700;
+            line-height: 1.08;
+            letter-spacing: -0.03em;
+            max-width: 14ch;
+            margin-bottom: 2rem;
+        }
+
+        .hero-sub {
+            font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+            color: var(--text-2);
+            max-width: 52ch;
+            line-height: 1.7;
+            margin-bottom: 3rem;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .hero-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .hero-meta-item .label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.06em;
+            color: var(--text-3);
+        }
+
+        .hero-meta-item .value {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* ─── Brands ─── */
+
+        .brands {
+            padding: clamp(64px, 10vh, 100px) 0;
+        }
+
+        .brands-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: clamp(40px, 6vh, 64px);
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .brands-header h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .brands-header p {
+            font-size: 0.88rem;
+            color: var(--text-3);
+        }
+
+        /* Featured brand (Rally HQ) — full width, prominent */
+        .brand-featured {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 2px;
+            transition: border-color 300ms;
+        }
+
+        .brand-featured:hover {
+            border-color: var(--border-hover);
+        }
+
+        .brand-featured-body {
+            padding: clamp(28px, 4vw, 48px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .brand-featured-aside {
+            padding: clamp(28px, 4vw, 48px);
+            background: var(--bg-surface);
+            border-left: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .brand-featured-aside li {
+            list-style: none;
+            font-size: 0.9rem;
+            color: var(--text-2);
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .brand-featured-aside li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 4px;
+            height: 4px;
+            border-radius: 1px;
+            background: var(--text-3);
+        }
+
+        .brand-name {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            color: var(--text-3);
+            margin-bottom: 12px;
+        }
+
+        .brand-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-bottom: 10px;
+            line-height: 1.25;
+        }
+
+        .brand-desc {
+            color: var(--text-2);
+            font-size: 0.92rem;
             line-height: 1.6;
+            max-width: 48ch;
+        }
+
+        .brand-url {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text-2);
+            margin-top: 16px;
+            transition: color 200ms;
+        }
+
+        .brand-url:hover { color: var(--text-1); }
+
+        .brand-url svg {
+            width: 12px;
+            height: 12px;
+            opacity: 0.5;
+        }
+
+        /* Brand grid — 2-column for standard brands */
+        .brand-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+        }
+
+        .brand-card {
+            padding: clamp(24px, 3vw, 36px);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            transition: border-color 300ms;
+        }
+
+        .brand-card:hover {
+            border-color: var(--border-hover);
+        }
+
+        /* Compact row for R&D / smaller brands */
+        .brand-compact {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px clamp(24px, 3vw, 36px);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            transition: border-color 300ms;
+            gap: 16px;
+        }
+
+        .brand-compact:hover {
+            border-color: var(--border-hover);
+        }
+
+        .brand-compact .brand-name {
+            margin-bottom: 0;
+        }
+
+        .brand-compact-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            min-width: 0;
+        }
+
+        .brand-compact-left .brand-name {
+            flex-shrink: 0;
+            min-width: 120px;
+        }
+
+        .brand-compact-left .brand-desc {
+            font-size: 0.88rem;
+        }
+
+        .brand-compact .brand-url {
+            margin-top: 0;
+            flex-shrink: 0;
+        }
+
+        .brand-section-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.06em;
+            color: var(--text-3);
+            padding: 20px 0 12px;
+        }
+
+        .brand-gap {
+            height: 2px;
+        }
+
+        /* Color accents — subtle left-border on hover */
+        .brand-card[data-accent="indigo"]:hover,
+        .brand-featured[data-accent="indigo"]:hover { border-left-color: #6366f1; }
+        .brand-card[data-accent="orange"]:hover { border-left-color: #f97316; }
+        .brand-card[data-accent="blue"]:hover { border-left-color: #3b82f6; }
+        .brand-card[data-accent="yellow"]:hover { border-left-color: #facc15; }
+        .brand-card[data-accent="pink"]:hover { border-left-color: #e879a0; }
+        .brand-card[data-accent="green"]:hover { border-left-color: #22c55e; }
+        .brand-compact[data-accent="cyan"]:hover { border-left-color: #00e0d6; }
+
+        /* ─── Operations ─── */
+
+        .operations {
+            padding: clamp(64px, 10vh, 100px) 0;
+        }
+
+        .operations h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: clamp(32px, 5vh, 48px);
+        }
+
+        .ops-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2px;
+        }
+
+        .ops-item {
+            padding: clamp(24px, 3vw, 32px);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+        }
+
+        .ops-item h3 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .ops-item p {
+            font-size: 0.88rem;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+
+        .stack-row {
+            margin-top: clamp(28px, 4vh, 40px);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .stack-tag {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            padding: 6px 12px;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            color: var(--text-3);
+            transition: color 200ms, border-color 200ms;
+        }
+
+        .stack-tag:hover {
+            color: var(--text-2);
+            border-color: var(--border-hover);
+        }
+
+        /* ─── Founder ─── */
+
+        .founder {
+            padding: clamp(64px, 10vh, 100px) 0;
+        }
+
+        .founder-inner {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: clamp(32px, 5vw, 64px);
+            align-items: start;
+        }
+
+        .founder h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .founder-bio p {
+            font-size: 0.95rem;
+            color: var(--text-2);
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .founder-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .founder-links a {
+            font-size: 0.85rem;
+            color: var(--text-2);
+            font-weight: 500;
+            transition: color 200ms;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2px;
+        }
+
+        .founder-links a:hover {
+            color: var(--text-1);
+            border-color: var(--text-2);
+        }
+
+        .founder-aside {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .founder-aside div {
+            padding: 16px 20px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 0.88rem;
+            color: var(--text-2);
+            line-height: 1.55;
+        }
+
+        /* ─── Contact ─── */
+
+        .contact {
+            padding: clamp(64px, 10vh, 100px) 0;
+        }
+
+        .contact-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .contact h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .contact-text {
+            font-size: 0.92rem;
+            color: var(--text-2);
+        }
+
+        .contact-actions {
+            display: flex;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 20px;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid var(--border-hover);
+            border-radius: 4px;
+            background: transparent;
+            color: var(--text-1);
+            cursor: pointer;
+            transition: background 200ms, border-color 200ms;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: var(--text-3);
+        }
+
+        .btn-fill {
+            background: var(--text-1);
+            color: var(--bg);
+            border-color: var(--text-1);
+        }
+
+        .btn-fill:hover {
+            background: #fff;
+            border-color: #fff;
+        }
+
+        /* ─── Newsletter ─── */
+
+        .newsletter-section {
+            padding: clamp(48px, 8vh, 80px) 0;
+        }
+
+        .newsletter-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .newsletter-text h3 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .newsletter-text p {
+            font-size: 0.85rem;
+            color: var(--text-3);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 8px;
+        }
+
+        .newsletter-form input {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            background: var(--bg);
+            color: var(--text-1);
+            min-width: 260px;
+            transition: border-color 200ms;
+        }
+
+        .newsletter-form input::placeholder {
+            color: var(--text-3);
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--border-hover);
+        }
+
+        .form-status {
+            width: 100%;
+            margin-top: 8px;
+            font-size: 0.82rem;
+        }
+
+        .form-status.success { color: #5cb87a; }
+        .form-status.error { color: #d46464; }
+
+        /* ─── Footer ─── */
+
+        .site-footer {
+            border-top: 1px solid var(--border);
+            padding: clamp(40px, 6vh, 64px) 0 clamp(24px, 4vh, 40px);
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: clamp(32px, 5vw, 64px);
+            padding-bottom: clamp(32px, 5vh, 48px);
+        }
+
+        .footer-brand p {
+            font-size: 0.85rem;
+            color: var(--text-3);
+            line-height: 1.6;
+            margin-top: 12px;
+        }
+
+        .footer-wordmark {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.82rem;
+            letter-spacing: 0.06em;
+            color: var(--text-2);
+        }
+
+        .footer-columns {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.04em;
+            color: var(--text-3);
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: grid;
+            gap: 8px;
+        }
+
+        .footer-col a {
+            font-size: 0.85rem;
+            color: var(--text-2);
+            transition: color 200ms;
+        }
+
+        .footer-col a:hover { color: var(--text-1); }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-legal {
+            font-size: 0.78rem;
+            color: var(--text-3);
+            line-height: 1.5;
+            max-width: 60ch;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-social a {
+            font-size: 0.82rem;
+            color: var(--text-3);
+            transition: color 200ms;
+        }
+
+        .footer-social a:hover { color: var(--text-2); }
+
+        /* ─── Responsive ─── */
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+
+            .brand-featured {
+                grid-template-columns: 1fr;
+            }
+
+            .brand-featured-aside {
+                border-left: none;
+                border-top: 1px solid var(--border);
+            }
+
+            .brand-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .brand-compact {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .brand-compact-left {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .ops-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .founder-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-inner {
+                flex-direction: column;
+            }
+
+            .contact-actions {
+                width: 100%;
+            }
+
+            .contact-actions .btn {
+                flex: 1;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-columns {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .newsletter-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .newsletter-form {
+                width: 100%;
+            }
+
+            .newsletter-form input {
+                min-width: 0;
+                flex: 1;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition-duration: 0.001ms !important;
+            }
         }
 
         .visually-hidden {
@@ -108,1153 +780,261 @@
             white-space: nowrap;
             border: 0;
         }
-
-        /* Grid overlay */
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-            background-size: 70px 70px;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Ambient orbs */
-        .gradient-orb {
-            position: fixed;
-            width: clamp(320px, 30vw, 600px);
-            height: clamp(320px, 30vw, 600px);
-            border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.14;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .gradient-orb:nth-of-type(1) {
-            top: -25%;
-            right: -15%;
-            background: linear-gradient(160deg, rgba(118, 167, 255, 0.85), rgba(124, 68, 255, 0.65));
-        }
-
-        .gradient-orb:nth-of-type(2) {
-            bottom: -30%;
-            left: -10%;
-            background: linear-gradient(60deg, rgba(255, 136, 189, 0.85), rgba(94, 255, 231, 0.45));
-        }
-
-        .site-shell {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* ─── Header ─── */
-
-        header.site-header {
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            background: linear-gradient(180deg, rgba(5, 5, 10, 0.92), rgba(5, 5, 10, 0.75) 60%, transparent 100%);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-        }
-
-        .nav {
-            max-width: var(--container);
-            margin: 0 auto;
-            padding: clamp(18px, 2vw, 24px) clamp(20px, 4vw, 32px);
-            display: flex;
-            align-items: center;
-            gap: clamp(24px, 4vw, 48px);
-        }
-
-        .nav-logo {
-            font-family: var(--font-display);
-            font-size: 0.85rem;
-            letter-spacing: 0.3rem;
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 700;
-            padding: 0.5rem 1.2rem;
-            border-radius: var(--radius-pill);
-            border: 1px solid var(--border-strong);
-            background: rgba(255, 255, 255, 0.04);
-            transition: var(--transition);
-            text-transform: uppercase;
-        }
-
-        .nav-logo:hover,
-        .nav-logo:focus-visible {
-            border-color: rgba(255, 255, 255, 0.32);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: clamp(16px, 2.4vw, 28px);
-            margin-left: auto;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-size: 0.92rem;
-            letter-spacing: 0.02em;
-            padding: 0.35rem 0.2rem;
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover,
-        .nav-links a:focus-visible {
-            color: var(--text-primary);
-        }
-
-        /* ─── Buttons ─── */
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.85rem 1.6rem;
-            border-radius: var(--radius-pill);
-            border: 1px solid transparent;
-            font-family: var(--font-body);
-            font-weight: 600;
-            font-size: var(--text-sm);
-            letter-spacing: 0.01em;
-            text-decoration: none;
-            cursor: pointer;
-            transition: transform var(--transition), background var(--transition), border-color var(--transition), filter var(--transition);
-        }
-
-        .btn-primary {
-            background: var(--gradient-primary);
-            color: #05060c;
-            box-shadow: 0 10px 32px rgba(107, 136, 255, 0.35);
-        }
-
-        .btn-primary:hover,
-        .btn-primary:focus-visible {
-            transform: translateY(-2px);
-            filter: brightness(1.05);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.16);
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .btn-secondary:hover,
-        .btn-secondary:focus-visible {
-            transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.14);
-            border-color: rgba(255, 255, 255, 0.32);
-        }
-
-        /* ─── Main ─── */
-
-        main {
-            max-width: var(--container);
-            margin: 0 auto;
-            padding: clamp(72px, 10vh, 120px) clamp(20px, 4vw, 32px) clamp(120px, 12vh, 160px);
-        }
-
-        section {
-            margin-bottom: clamp(80px, 12vh, 140px);
-        }
-
-        .section-kicker {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            text-transform: uppercase;
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            letter-spacing: 0.28rem;
-            color: var(--text-muted);
-            margin-bottom: 1.4rem;
-        }
-
-        .section-kicker::before {
-            content: "";
-            width: 32px;
-            height: 1px;
-            background: var(--text-muted);
-        }
-
-        h1, h2, h3 {
-            font-family: var(--font-display);
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-
-        h1 span,
-        h2 span {
-            background: var(--gradient-text);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-
-        /* ─── Hero ─── */
-
-        .hero {
-            position: relative;
-            padding-bottom: 2rem;
-        }
-
-        .hero-label {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            letter-spacing: 0.2rem;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 1.8rem;
-            padding: 0.4rem 1rem;
-            border-radius: var(--radius-pill);
-            border: 1px solid rgba(107, 136, 255, 0.25);
-            background: rgba(107, 136, 255, 0.08);
-        }
-
-        .headline {
-            font-size: clamp(2.8rem, 6.5vw, 4.6rem);
-            line-height: 1.02;
-            margin-bottom: 1.5rem;
-            max-width: 16ch;
-        }
-
-        .subhead {
-            font-size: clamp(1.1rem, 1.6vw, 1.35rem);
-            color: var(--text-secondary);
-            max-width: 48ch;
-            margin-bottom: 1rem;
-            line-height: 1.65;
-        }
-
-        .hero-hook {
-            font-family: var(--font-mono);
-            font-size: var(--text-sm);
-            color: var(--text-muted);
-            letter-spacing: 0.04em;
-            margin-bottom: 2.4rem;
-        }
-
-        .cta-group {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        /* ─── Brand Groups ─── */
-
-        .brand-group {
-            margin-bottom: clamp(48px, 6vw, 72px);
-        }
-
-        .brand-group:last-child {
-            margin-bottom: 0;
-        }
-
-        .brand-group-label {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            letter-spacing: 0.22rem;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            padding-bottom: 0.8rem;
-            margin-bottom: 1.4rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .card-grid {
-            display: grid;
-            gap: clamp(20px, 3vw, 24px);
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        }
-
-        /* ─── Brand Cards ─── */
-
-        .card {
-            --card-accent: var(--accent);
-            position: relative;
-            padding: clamp(24px, 3vw, 32px);
-            border-radius: var(--radius-xl);
-            background: linear-gradient(165deg, rgba(12, 14, 28, 0.82), rgba(8, 9, 18, 0.72));
-            border: 1px solid rgba(107, 136, 255, 0.1);
-            box-shadow: 0 22px 60px rgba(6, 7, 14, 0.35);
-            overflow: hidden;
-            transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
-            backdrop-filter: blur(14px);
-        }
-
-        .card::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at top right, rgba(from var(--card-accent) r g b / 0.14), transparent 55%);
-            opacity: 0;
-            transition: opacity var(--transition);
-            pointer-events: none;
-        }
-
-        .card:hover,
-        .card:focus-within {
-            transform: translateY(-6px);
-            border-color: rgba(from var(--card-accent) r g b / 0.35);
-            box-shadow: 0 28px 75px rgba(from var(--card-accent) r g b / 0.08);
-        }
-
-        .card:hover::before,
-        .card:focus-within::before {
-            opacity: 1;
-        }
-
-        /* Per-brand accents */
-        .card[data-brand="rallyhq"] { --card-accent: var(--brand-rallyhq); }
-        .card[data-brand="letspepper"] { --card-accent: var(--brand-letspepper); }
-        .card[data-brand="630"] { --card-accent: var(--brand-630); }
-        .card[data-brand="flickday"] { --card-accent: var(--brand-flickday); }
-        .card[data-brand="nino"] { --card-accent: var(--brand-nino); }
-        .card[data-brand="volleyrx"] { --card-accent: var(--brand-volleyrx); }
-        .card[data-brand="zerospecs"] { --card-accent: var(--brand-zerospecs); }
-
-        .card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.7rem;
-            color: var(--text-primary);
-        }
-
-        .card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-
-        .card ul {
-            list-style: none;
-            display: grid;
-            gap: 0.55rem;
-            color: var(--text-secondary);
-            font-size: 0.88rem;
-            margin-bottom: 1rem;
-        }
-
-        .card ul li {
-            padding-left: 1.3rem;
-            position: relative;
-        }
-
-        .card ul li::before {
-            content: "\2192";
-            position: absolute;
-            left: 0;
-            top: 0;
-            color: var(--text-muted);
-        }
-
-        .chip-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 1rem;
-        }
-
-        .chip {
-            font-family: var(--font-mono);
-            font-size: 0.68rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            padding: 0.25rem 0.7rem;
-            border-radius: var(--radius-pill);
-            border: 1px solid var(--border-strong);
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-secondary);
-        }
-
-        .chip-brand {
-            border-color: rgba(from var(--card-accent) r g b / 0.35);
-            background: rgba(from var(--card-accent) r g b / 0.1);
-            color: rgba(from var(--card-accent) r g b / 0.9);
-        }
-
-        .chip-live {
-            border-color: rgba(34, 197, 94, 0.4);
-            background: rgba(34, 197, 94, 0.1);
-            color: rgba(34, 197, 94, 0.9);
-        }
-
-        .card-footer {
-            display: flex;
-            justify-content: flex-start;
-            flex-wrap: wrap;
-            gap: 0.75rem 1.25rem;
-            align-items: center;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .card-link {
-            font-size: var(--text-sm);
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            color: var(--text-primary);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .card-link::after {
-            content: "\2197";
-            font-size: 0.9em;
-            opacity: 0.6;
-            transition: var(--transition);
-        }
-
-        .card-link:hover,
-        .card-link:focus-visible {
-            color: #ffffff;
-        }
-
-        .card-link:hover::after {
-            opacity: 1;
-        }
-
-        /* ─── Operations ─── */
-
-        .operations-content {
-            display: grid;
-            gap: clamp(32px, 5vw, 48px);
-            grid-template-columns: 1fr 1fr;
-            align-items: start;
-        }
-
-        .operations-text p {
-            color: var(--text-secondary);
-            font-size: 1.05rem;
-            line-height: 1.7;
-            margin-bottom: 1.2rem;
-        }
-
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .tech-pill {
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            letter-spacing: 0.1em;
-            padding: 0.4rem 0.9rem;
-            border-radius: var(--radius-pill);
-            border: 1px solid var(--border);
-            background: rgba(255, 255, 255, 0.03);
-            color: var(--text-secondary);
-            transition: var(--transition);
-        }
-
-        .tech-pill:hover {
-            border-color: var(--border-strong);
-            background: rgba(255, 255, 255, 0.06);
-            color: var(--text-primary);
-        }
-
-        .operations-values {
-            display: grid;
-            gap: 14px;
-        }
-
-        .value-item {
-            padding: 1rem 1.2rem;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border);
-            background: rgba(255, 255, 255, 0.02);
-            color: var(--text-secondary);
-            font-size: 0.92rem;
-            line-height: 1.55;
-        }
-
-        .value-item strong {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        /* ─── Founder ─── */
-
-        .founder {
-            display: grid;
-            gap: clamp(24px, 5vw, 48px);
-            grid-template-columns: 1fr 1fr;
-            align-items: start;
-        }
-
-        .founder-card {
-            border-radius: var(--radius-xl);
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border);
-            padding: clamp(26px, 4vw, 36px);
-        }
-
-        .founder-card h3 {
-            font-size: clamp(1.6rem, 3vw, 2rem);
-            margin-bottom: 0.8rem;
-        }
-
-        .founder-card p {
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
-
-        .founder-card p + p {
-            margin-top: 1rem;
-        }
-
-        .founder-links {
-            display: flex;
-            gap: 12px;
-            margin-top: 1.4rem;
-            flex-wrap: wrap;
-        }
-
-        .founder-links a {
-            font-size: var(--text-sm);
-            font-weight: 500;
-            color: var(--text-primary);
-            text-decoration: none;
-            padding: 0.45rem 1rem;
-            border-radius: var(--radius-pill);
-            border: 1px solid var(--border-strong);
-            background: rgba(255, 255, 255, 0.04);
-            transition: var(--transition);
-        }
-
-        .founder-links a::after {
-            content: " \2197";
-            font-size: 0.85em;
-            opacity: 0.5;
-        }
-
-        .founder-links a:hover,
-        .founder-links a:focus-visible {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.35);
-        }
-
-        .founder-meta {
-            display: grid;
-            gap: 14px;
-        }
-
-        .founder-meta div {
-            padding: 1rem 1.2rem;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border);
-            background: rgba(255, 255, 255, 0.02);
-            color: var(--text-secondary);
-            font-size: 0.92rem;
-            line-height: 1.55;
-        }
-
-        /* ─── Newsletter ─── */
-
-        .newsletter-section {
-            margin-top: 2.4rem;
-            padding: clamp(24px, 3vw, 32px);
-            border-radius: var(--radius-xl);
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border);
-        }
-
-        .newsletter-section h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.4rem;
-        }
-
-        .newsletter-section > p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 1.2rem;
-        }
-
-        .newsletter {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            align-items: flex-end;
-        }
-
-        .form-field {
-            flex: 1 1 260px;
-            min-width: 220px;
-            display: grid;
-            gap: 0.4rem;
-        }
-
-        .form-label {
-            font-family: var(--font-mono);
-            font-size: 0.68rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border-radius: var(--radius-md);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            background: rgba(8, 10, 20, 0.8);
-            color: #ffffff;
-            font-family: var(--font-body);
-            transition: var(--transition);
-        }
-
-        .form-input::placeholder {
-            color: var(--text-muted);
-        }
-
-        .form-input:focus-visible {
-            outline: none;
-            border-color: rgba(107, 136, 255, 0.6);
-            box-shadow: 0 0 0 3px var(--accent-glow);
-        }
-
-        .form-status {
-            width: 100%;
-            margin-top: 0.6rem;
-            font-size: 0.85rem;
-            letter-spacing: 0.02em;
-        }
-
-        .form-status.success { color: rgba(144, 236, 181, 0.9); }
-        .form-status.error { color: rgba(255, 148, 148, 0.9); }
-
-        /* ─── CTA Panel ─── */
-
-        .cta-panel {
-            text-align: center;
-            padding: clamp(46px, 6vw, 72px);
-            border-radius: var(--radius-xl);
-            background: rgba(10, 14, 32, 0.85);
-            border: 1px solid rgba(107, 136, 255, 0.22);
-            box-shadow: 0 20px 80px rgba(34, 54, 142, 0.25);
-        }
-
-        .cta-panel h2 {
-            font-size: clamp(2rem, 4.5vw, 3rem);
-            margin-bottom: 1rem;
-        }
-
-        .cta-panel p {
-            color: var(--text-secondary);
-            max-width: 50ch;
-            margin: 0 auto 2rem;
-        }
-
-        .cta-panel .cta-group {
-            justify-content: center;
-        }
-
-        /* ─── Footer ─── */
-
-        .site-footer {
-            border-top: 1px solid var(--border);
-            background: rgba(4, 4, 9, 0.92);
-            padding: clamp(48px, 6vw, 72px) clamp(20px, 4vw, 32px) clamp(28px, 4vw, 40px);
-        }
-
-        .footer-shell {
-            max-width: var(--container);
-            margin: 0 auto;
-            display: grid;
-            gap: clamp(32px, 4vw, 48px);
-        }
-
-        .footer-top {
-            display: grid;
-            gap: clamp(24px, 4vw, 40px);
-            grid-template-columns: 1.2fr 2fr;
-        }
-
-        .footer-brand {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .footer-wordmark {
-            font-family: var(--font-display);
-            font-size: 0.78rem;
-            letter-spacing: 0.35rem;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-        }
-
-        .footer-brand p {
-            color: var(--text-secondary);
-            font-size: 0.92rem;
-            line-height: 1.7;
-        }
-
-        .footer-contact {
-            display: flex;
-            gap: 1.1rem;
-            flex-wrap: wrap;
-            font-size: 0.88rem;
-            color: var(--text-muted);
-        }
-
-        .footer-contact a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .footer-contact a:hover,
-        .footer-contact a:focus-visible {
-            color: #ffffff;
-        }
-
-        .footer-links {
-            display: grid;
-            gap: clamp(20px, 3vw, 32px);
-            grid-template-columns: repeat(3, 1fr);
-        }
-
-        .footer-column {
-            display: grid;
-            gap: 0.7rem;
-        }
-
-        .footer-column h4 {
-            font-family: var(--font-mono);
-            font-size: 0.72rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-        }
-
-        .footer-column ul {
-            list-style: none;
-            display: grid;
-            gap: 0.5rem;
-            padding: 0;
-        }
-
-        .footer-column a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: var(--transition);
-        }
-
-        .footer-column a:hover,
-        .footer-column a:focus-visible {
-            color: #ffffff;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid var(--border);
-            padding-top: 1.4rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem 1.4rem;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.82rem;
-            color: var(--text-muted);
-        }
-
-        .footer-bottom a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-bottom a:hover,
-        .footer-bottom a:focus-visible {
-            color: #ffffff;
-        }
-
-        .footer-legal {
-            max-width: 60ch;
-            line-height: 1.5;
-        }
-
-        .footer-bottom-links {
-            display: flex;
-            gap: 1.1rem;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        /* ─── Responsive ─── */
-
-        @media (max-width: 960px) {
-            .nav-links {
-                display: none;
-            }
-
-            .headline {
-                font-size: clamp(2.2rem, 8vw, 3.2rem);
-            }
-
-            .operations-content,
-            .founder,
-            .footer-top {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-links {
-                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            }
-
-            .card-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.001ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.001ms !important;
-                scroll-behavior: auto !important;
-            }
-        }
-
-        /* ─── Fallback for browsers without relative color syntax ─── */
-        @supports not (color: rgba(from red r g b / 0.5)) {
-            .card::before {
-                background: radial-gradient(circle at top right, rgba(107, 136, 255, 0.14), transparent 55%);
-            }
-
-            .card:hover,
-            .card:focus-within {
-                border-color: rgba(107, 136, 255, 0.28);
-                box-shadow: 0 28px 75px rgba(10, 14, 32, 0.42);
-            }
-
-            .chip-brand {
-                border-color: rgba(107, 136, 255, 0.35);
-                background: rgba(107, 136, 255, 0.1);
-                color: rgba(180, 200, 255, 0.9);
-            }
-        }
     </style>
 </head>
 <body>
-    <div class="gradient-orb"></div>
-    <div class="gradient-orb"></div>
-
-    <div class="site-shell">
-        <header class="site-header">
-            <nav class="nav" aria-label="Primary">
-                <a href="#top" class="nav-logo">Signal X Studio</a>
-                <div class="nav-links">
-                    <a href="#brands">Brands</a>
-                    <a href="#operations">Operations</a>
-                    <a href="#founder">Founder</a>
-                    <a href="#contact">Contact</a>
-                </div>
+    <header class="site-header">
+        <div class="container">
+            <span class="nav-wordmark">Signal X Studio</span>
+            <nav class="nav-links" aria-label="Primary">
+                <a href="#brands">Brands</a>
+                <a href="#operations">Operations</a>
+                <a href="#founder">Founder</a>
+                <a href="#contact">Contact</a>
             </nav>
-        </header>
+        </div>
+    </header>
 
-        <main id="top">
+    <main>
+        <!-- Hero -->
+        <section class="hero container" id="top" aria-labelledby="hero-heading">
+            <h1 id="hero-heading">Creative technology holding company.</h1>
+            <p class="hero-sub">
+                Signal X Studio builds and operates brands across sports media, tournament infrastructure, and interactive software. One entity. Seven brands. All built from the ground up.
+            </p>
+            <div class="hero-meta">
+                <div class="hero-meta-item">
+                    <span class="label">Brands</span>
+                    <span class="value">7</span>
+                </div>
+                <div class="hero-meta-item">
+                    <span class="label">Domains</span>
+                    <span class="value">Sports, SaaS, Media</span>
+                </div>
+                <div class="hero-meta-item">
+                    <span class="label">Structure</span>
+                    <span class="value">Single Operator</span>
+                </div>
+            </div>
+        </section>
 
-            <!-- Hero -->
-            <section class="hero" aria-labelledby="hero-heading">
-                <div>
-                    <div class="hero-label">Creative Technology Holding Company</div>
-                    <h1 id="hero-heading" class="headline">
-                        One entity.<br>Seven <span>brands</span>.
-                    </h1>
-                    <p class="subhead">
-                        Signal X Studio builds and operates the future of sports media, tournament infrastructure, and interactive software.
+        <div class="container"><div class="divider"></div></div>
+
+        <!-- Brands -->
+        <section class="brands container" id="brands" aria-labelledby="brands-heading">
+            <div class="brands-header">
+                <h2 id="brands-heading">Portfolio</h2>
+                <p>7 brands across 4 verticals</p>
+            </div>
+
+            <!-- Featured: Rally HQ -->
+            <a href="https://rallyhq.app" class="brand-featured" data-accent="indigo" aria-labelledby="rallyhq-heading">
+                <div class="brand-featured-body">
+                    <div class="brand-name">Rally HQ</div>
+                    <h3 class="brand-title" id="rallyhq-heading">Mission control for your tournament.</h3>
+                    <p class="brand-desc">
+                        Built because tournament software was terrible. Handles scheduling, real-time scoring, and bracket progression — phone-first and built for the field.
                     </p>
-                    <p class="hero-hook">Built from the ground up.</p>
-                    <div class="cta-group">
-                        <a class="btn btn-primary" href="#brands">Explore Our Brands</a>
-                        <a class="btn btn-secondary" href="#contact">Get in Touch</a>
-                    </div>
+                    <span class="brand-url">rallyhq.app <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg></span>
                 </div>
-            </section>
-
-            <!-- Brands -->
-            <section id="brands" aria-labelledby="brands-heading">
-                <div class="section-kicker">Portfolio</div>
-                <h2 id="brands-heading"><span>Brands</span> we build and operate.</h2>
-
-                <!-- Sports & Events -->
-                <div class="brand-group" style="margin-top: 2.4rem;">
-                    <div class="brand-group-label">Sports & Events</div>
-                    <div class="card-grid">
-                        <article class="card" data-brand="letspepper" aria-labelledby="letspepper-heading">
-                            <div class="chip-row">
-                                <span class="chip chip-brand">Let's Pepper</span>
-                                <span class="chip chip-live">Live</span>
-                            </div>
-                            <h3 id="letspepper-heading">Grassroots 3v3 volleyball.</h3>
-                            <p>
-                                Underground tournament series. No fluff — just skill, sweat, and community-run competition bringing players together on the grass.
-                            </p>
-                            <footer class="card-footer">
-                                <a class="card-link" href="https://letspepper.com">letspepper.com</a>
-                            </footer>
-                        </article>
-                        <article class="card" data-brand="630" aria-labelledby="630-heading">
-                            <div class="chip-row">
-                                <span class="chip chip-brand">630 Volleyball</span>
-                                <span class="chip chip-live">Live</span>
-                            </div>
-                            <h3 id="630-heading">Coaching tools platform.</h3>
-                            <p>
-                                E-signatures, competency assessments, and team rankings for volleyball programs. Three apps, one design system.
-                            </p>
-                            <footer class="card-footer">
-                                <a class="card-link" href="https://630volleyball.app">630volleyball.app</a>
-                            </footer>
-                        </article>
-                    </div>
+                <div class="brand-featured-aside">
+                    <ul>
+                        <li>Real-time scoring and bracket progression</li>
+                        <li>Wave-based scheduling with pool automation</li>
+                        <li>Phone-first design for organizers and officials</li>
+                    </ul>
                 </div>
+            </a>
 
-                <!-- Infrastructure & SaaS -->
-                <div class="brand-group">
-                    <div class="brand-group-label">Infrastructure & SaaS</div>
-                    <div class="card-grid">
-                        <article class="card" data-brand="rallyhq" aria-labelledby="rallyhq-heading">
-                            <div class="chip-row">
-                                <span class="chip chip-brand">Rally HQ</span>
-                                <span class="chip chip-live">Live</span>
-                            </div>
-                            <h3 id="rallyhq-heading">Mission control for your tournament.</h3>
-                            <p>
-                                Built because tournament software was terrible. Real-time scoring, wave-based scheduling, and bracket progression — phone-first and built for the field.
-                            </p>
-                            <ul>
-                                <li>Real-time scoring and bracket progression</li>
-                                <li>Wave-based scheduling with pool automation</li>
-                                <li>Phone-first design for organizers and officials</li>
-                            </ul>
-                            <footer class="card-footer">
-                                <a class="card-link" href="https://rallyhq.app">rallyhq.app</a>
-                            </footer>
-                        </article>
-                        <article class="card" data-brand="volleyrx" aria-labelledby="volleyrx-heading">
-                            <div class="chip-row">
-                                <span class="chip chip-brand">VolleyRX</span>
-                                <span class="chip chip-live">Live</span>
-                            </div>
-                            <h3 id="volleyrx-heading">Volleyball analytics and match data.</h3>
-                            <p>
-                                Performance data, match analytics, and competitive insights for volleyball players, coaches, and programs.
-                            </p>
-                            <footer class="card-footer">
-                                <a class="card-link" href="https://volleyrx.com">volleyrx.com</a>
-                            </footer>
-                        </article>
-                    </div>
-                </div>
+            <div class="brand-gap"></div>
 
-                <!-- Media & Creative -->
-                <div class="brand-group">
-                    <div class="brand-group-label">Media & Creative</div>
-                    <div class="card-grid">
-                        <article class="card" data-brand="flickday" aria-labelledby="flickday-heading">
-                            <div class="chip-row">
-                                <span class="chip chip-brand">Flickday Media</span>
-                                <span class="chip chip-live">Live</span>
-                            </div>
-                            <h3 id="flickday-heading">Raw, fast, player-first.</h3>
-                            <p>
-                                Tournament coverage, reels, and same-day photo drops. Flickday captures the energy of live competition and gets it into players' hands fast.
-                            </p>
-                            <footer class="card-footer">
-                                <a class="card-link" href="https://flickdaymedia.com">flickdaymedia.com</a>
-                            </footer>
-                        </article>
-                        <article class="card" data-brand="nino" aria-labelledby="nino-heading">
-                            <div class="chip-row">
-                                <span class="chip chip-brand">Nino Chavez</span>
-                                <span class="chip">Portfolio</span>
-                            </div>
-                            <h3 id="nino-heading">Photography, writing, and education.</h3>
-                            <p>
-                                Action sports photography, the Signal Dispatch blog, and the AI Analyst Academy — a self-paced curriculum for designing human-AI systems.
-                            </p>
-                            <footer class="card-footer">
-                                <a class="card-link" href="https://ninochavez.co">ninochavez.co</a>
-                            </footer>
-                        </article>
-                    </div>
-                </div>
+            <!-- Standard brands: 2-column grid -->
+            <div class="brand-section-label">Sports & Events</div>
+            <div class="brand-grid">
+                <a href="https://letspepper.com" class="brand-card" data-accent="orange" aria-labelledby="letspepper-heading">
+                    <div class="brand-name">Let's Pepper</div>
+                    <h3 class="brand-title" id="letspepper-heading">Grassroots 3v3 volleyball.</h3>
+                    <p class="brand-desc">Underground tournament series. Player-first, raw competition bringing athletes together on the grass.</p>
+                    <span class="brand-url">letspepper.com <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg></span>
+                </a>
+                <a href="https://630volleyball.app" class="brand-card" data-accent="blue" aria-labelledby="630-heading">
+                    <div class="brand-name">630 Volleyball</div>
+                    <h3 class="brand-title" id="630-heading">Coaching tools platform.</h3>
+                    <p class="brand-desc">E-signatures, competency assessments, and team rankings. Three apps, one design system.</p>
+                    <span class="brand-url">630volleyball.app <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg></span>
+                </a>
+            </div>
 
-                <!-- R&D -->
-                <div class="brand-group">
-                    <div class="brand-group-label">R&D</div>
-                    <div class="card-grid">
-                        <article class="card" data-brand="zerospecs" aria-labelledby="zerospecs-heading">
-                            <div class="chip-row">
-                                <span class="chip chip-brand">Zero Specs</span>
-                                <span class="chip chip-live">Live</span>
-                            </div>
-                            <h3 id="zerospecs-heading">Experimental builds and spec-driven prototypes.</h3>
-                            <p>
-                                The lab for new ideas. Spec-driven prototypes, experimental interfaces, and software that doesn't fit anywhere else yet.
-                            </p>
-                            <footer class="card-footer">
-                                <a class="card-link" href="https://zerospecs.app">zerospecs.app</a>
-                            </footer>
-                        </article>
-                    </div>
-                </div>
+            <div class="brand-section-label">Infrastructure & SaaS</div>
+            <div class="brand-grid">
+                <a href="https://volleyrx.com" class="brand-card" data-accent="green" aria-labelledby="volleyrx-heading">
+                    <div class="brand-name">VolleyRX</div>
+                    <h3 class="brand-title" id="volleyrx-heading">Volleyball analytics and match data.</h3>
+                    <p class="brand-desc">Performance data, match analytics, and competitive insights for players, coaches, and programs.</p>
+                    <span class="brand-url">volleyrx.com <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg></span>
+                </a>
+                <div></div>
+            </div>
 
-                <!-- Newsletter -->
-                <div class="newsletter-section">
-                    <h3>Stay in the loop.</h3>
-                    <p>Get updates when we ship new brands, features, or experiments.</p>
-                    <form id="labsNewsletter" class="newsletter" novalidate>
-                        <div class="form-field">
-                            <label for="email" class="form-label">Email Address</label>
-                            <input class="form-input" id="email" type="email" name="email" required placeholder="you@example.com" aria-describedby="labsNewsletterStatus">
-                        </div>
-                        <button class="btn btn-secondary" type="submit">Subscribe</button>
-                        <p id="labsNewsletterStatus" class="form-status" role="status" aria-live="polite"></p>
-                    </form>
-                </div>
-            </section>
+            <div class="brand-section-label">Media & Creative</div>
+            <div class="brand-grid">
+                <a href="https://flickdaymedia.com" class="brand-card" data-accent="yellow" aria-labelledby="flickday-heading">
+                    <div class="brand-name">Flickday Media</div>
+                    <h3 class="brand-title" id="flickday-heading">Raw, fast, player-first.</h3>
+                    <p class="brand-desc">Tournament coverage, reels, and same-day photo drops. Capturing live competition energy.</p>
+                    <span class="brand-url">flickdaymedia.com <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg></span>
+                </a>
+                <a href="https://ninochavez.co" class="brand-card" data-accent="pink" aria-labelledby="nino-heading">
+                    <div class="brand-name">Nino Chavez</div>
+                    <h3 class="brand-title" id="nino-heading">Photography, writing, education.</h3>
+                    <p class="brand-desc">Action sports photography, the Signal Dispatch blog, and the AI Analyst Academy.</p>
+                    <span class="brand-url">ninochavez.co <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg></span>
+                </a>
+            </div>
 
-            <!-- Operations -->
-            <section id="operations" aria-labelledby="operations-heading">
-                <div class="section-kicker">Operations</div>
-                <h2 id="operations-heading">The <span>engine</span> behind it all.</h2>
-                <div class="operations-content" style="margin-top: 2rem;">
-                    <div class="operations-text">
-                        <p>
-                            Signal X Studio, LLC serves as the central operating hub for our suite of brands. We manage all technology architecture, financial operations, and brand strategy in-house.
-                        </p>
-                        <p>
-                            Every product ships on the same modern stack — designed for speed, reliability, and a single-operator model.
-                        </p>
-                        <div class="tech-stack" style="margin-top: 1.2rem;">
-                            <span class="tech-pill">SvelteKit</span>
-                            <span class="tech-pill">Next.js</span>
-                            <span class="tech-pill">Tailwind CSS</span>
-                            <span class="tech-pill">Supabase</span>
-                            <span class="tech-pill">Vercel</span>
-                            <span class="tech-pill">Claude Code</span>
-                            <span class="tech-pill">TypeScript</span>
-                        </div>
-                    </div>
-                    <div class="operations-values">
-                        <div class="value-item"><strong>Intent-Driven Engineering.</strong> Every line of code starts with a clear reason. Ship things that work. Skip the rest.</div>
-                        <div class="value-item"><strong>Single-Operator Scale.</strong> One person, seven brands, zero bloat. Automation and AI handle the leverage.</div>
-                        <div class="value-item"><strong>Vertical Integration.</strong> Design, code, media, events — all under one roof. The best tools come from people who understand both the craft and the code.</div>
-                    </div>
+            <div class="brand-section-label">R&D</div>
+            <a href="https://zerospecs.app" class="brand-compact" data-accent="cyan" aria-labelledby="zerospecs-heading">
+                <div class="brand-compact-left">
+                    <div class="brand-name" id="zerospecs-heading">Zero Specs</div>
+                    <p class="brand-desc">Spec-driven prototypes and experimental software.</p>
                 </div>
-            </section>
+                <span class="brand-url">zerospecs.app <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg></span>
+            </a>
+        </section>
 
-            <!-- Founder -->
-            <section id="founder" aria-labelledby="founder-heading">
-                <div class="section-kicker">Founder</div>
-                <div class="founder">
-                    <article class="founder-card">
-                        <h3 id="founder-heading">Nino Chavez</h3>
-                        <p>
-                            Designer who codes. Architect who designs. A decade of creative direction meets hands-on engineering — building platforms where aesthetic precision and technical depth are inseparable.
-                        </p>
-                        <p>
-                            Background spans action sports photography, experiential media, grassroots events, and software engineering. Signal X Studio is the holding company behind all of it.
-                        </p>
-                        <div class="founder-links">
-                            <a href="https://ninochavez.co">Portfolio</a>
-                            <a href="https://www.linkedin.com/in/ninochavez">LinkedIn</a>
-                            <a href="https://github.com/nino-chavez">GitHub</a>
-                        </div>
-                    </article>
-                    <div class="founder-meta">
-                        <div>Building with Vercel, Supabase, Anthropic, and Claude Code. Shipping products with Intent-Driven Engineering.</div>
-                        <div>Make complex systems feel inevitable. Ship things that work. Keep it honest.</div>
-                        <div>One entity. Seven brands. Built from the ground up.</div>
-                    </div>
-                </div>
-            </section>
+        <div class="container"><div class="divider"></div></div>
 
-            <!-- Contact -->
-            <section id="contact" aria-labelledby="cta-heading">
-                <div class="section-kicker">Contact</div>
-                <div class="cta-panel">
-                    <h2 id="cta-heading">Want to talk about building something?</h2>
-                    <p>Whether it's a project, a partnership, or just a conversation — reach out.</p>
-                    <div class="cta-group">
-                        <a class="btn btn-primary" href="mailto:nino@signalx.studio?subject=Hello">Send an Email</a>
-                        <button class="btn btn-secondary" type="button" id="scheduleSessionButton">
-                            Schedule 30-Min Session
-                        </button>
-                    </div>
+        <!-- Operations -->
+        <section class="operations container" id="operations" aria-labelledby="operations-heading">
+            <h2 id="operations-heading">How we operate</h2>
+            <div class="ops-grid">
+                <div class="ops-item">
+                    <h3>Intent-Driven Engineering</h3>
+                    <p>Every line of code starts with a clear reason. Ship things that work. Skip the rest.</p>
                 </div>
-            </section>
-        </main>
+                <div class="ops-item">
+                    <h3>Single-Operator Scale</h3>
+                    <p>One person, seven brands, zero bloat. Automation and AI handle the leverage.</p>
+                </div>
+                <div class="ops-item">
+                    <h3>Vertical Integration</h3>
+                    <p>Design, code, media, events — all under one roof. No handoffs. No committees.</p>
+                </div>
+            </div>
+            <div class="stack-row">
+                <span class="stack-tag">SvelteKit</span>
+                <span class="stack-tag">Next.js</span>
+                <span class="stack-tag">TypeScript</span>
+                <span class="stack-tag">Tailwind CSS</span>
+                <span class="stack-tag">Supabase</span>
+                <span class="stack-tag">Vercel</span>
+                <span class="stack-tag">Claude Code</span>
+            </div>
+        </section>
 
-        <footer class="site-footer">
-            <div class="footer-shell">
-                <div class="footer-top">
-                    <div class="footer-brand">
-                        <span class="footer-wordmark">Signal X Studio</span>
-                        <p>Creative technology holding company building and operating platforms, media brands, and event series.</p>
-                        <div class="footer-contact">
-                            <a href="mailto:nino@signalx.studio">nino@signalx.studio</a>
-                        </div>
-                    </div>
-                    <div class="footer-links">
-                        <div class="footer-column" aria-labelledby="footer-sports">
-                            <h4 id="footer-sports">Sports & Events</h4>
-                            <ul>
-                                <li><a href="https://letspepper.com">Let's Pepper</a></li>
-                                <li><a href="https://630volleyball.app">630 Volleyball</a></li>
-                            </ul>
-                        </div>
-                        <div class="footer-column" aria-labelledby="footer-infra">
-                            <h4 id="footer-infra">Infrastructure</h4>
-                            <ul>
-                                <li><a href="https://rallyhq.app">Rally HQ</a></li>
-                                <li><a href="https://volleyrx.com">VolleyRX</a></li>
-                            </ul>
-                        </div>
-                        <div class="footer-column" aria-labelledby="footer-media">
-                            <h4 id="footer-media">Media & Creative</h4>
-                            <ul>
-                                <li><a href="https://flickdaymedia.com">Flickday Media</a></li>
-                                <li><a href="https://ninochavez.co">Nino Chavez</a></li>
-                                <li><a href="https://zerospecs.app">Zero Specs</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <div class="footer-legal">
-                        &copy; 2025 Signal X Studio, LLC. All brand names are registered DBAs of Signal X Studio, LLC.
-                    </div>
-                    <div class="footer-bottom-links">
-                        <a href="mailto:nino@signalx.studio">Email</a>
+        <div class="container"><div class="divider"></div></div>
+
+        <!-- Founder -->
+        <section class="founder container" id="founder" aria-labelledby="founder-heading">
+            <div class="founder-inner">
+                <div class="founder-bio">
+                    <h2 id="founder-heading">Nino Chavez</h2>
+                    <p>
+                        Designer who codes. Architect who designs. A decade of creative direction meets hands-on engineering — building platforms where aesthetic precision and technical depth are inseparable.
+                    </p>
+                    <p>
+                        Background spans action sports photography, experiential media, grassroots events, and software engineering. Signal X Studio is the holding company behind all of it.
+                    </p>
+                    <div class="founder-links">
+                        <a href="https://ninochavez.co">Portfolio</a>
                         <a href="https://www.linkedin.com/in/ninochavez">LinkedIn</a>
                         <a href="https://github.com/nino-chavez">GitHub</a>
                     </div>
                 </div>
+                <div class="founder-aside">
+                    <div>Building with Vercel, Supabase, Anthropic, and Claude Code.</div>
+                    <div>Make complex systems feel inevitable. Ship things that work. Keep it honest.</div>
+                </div>
             </div>
-        </footer>
-    </div>
+        </section>
+
+        <div class="container"><div class="divider"></div></div>
+
+        <!-- Contact -->
+        <section class="contact container" id="contact" aria-labelledby="contact-heading">
+            <div class="contact-inner">
+                <div>
+                    <h2 id="contact-heading">Get in touch</h2>
+                    <p class="contact-text">Projects, partnerships, or just a conversation.</p>
+                </div>
+                <div class="contact-actions">
+                    <a class="btn btn-fill" href="mailto:nino@signalx.studio?subject=Hello">Email</a>
+                    <button class="btn" type="button" id="scheduleSessionButton">Schedule a Call</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="container"><div class="divider"></div></div>
+
+        <!-- Newsletter -->
+        <section class="newsletter-section container">
+            <div class="newsletter-inner">
+                <div class="newsletter-text">
+                    <h3>Stay in the loop</h3>
+                    <p>Updates when we ship new brands, features, or experiments.</p>
+                </div>
+                <form id="labsNewsletter" class="newsletter-form" novalidate>
+                    <label for="email" class="visually-hidden">Email address</label>
+                    <input id="email" type="email" name="email" required placeholder="you@example.com" aria-describedby="labsNewsletterStatus">
+                    <button class="btn" type="submit">Subscribe</button>
+                </form>
+            </div>
+            <p id="labsNewsletterStatus" class="form-status" role="status" aria-live="polite"></p>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <span class="footer-wordmark">Signal X Studio</span>
+                    <p>Creative technology holding company building platforms, media brands, and event series.</p>
+                </div>
+                <div class="footer-columns">
+                    <div class="footer-col">
+                        <h4>Sports & Events</h4>
+                        <ul>
+                            <li><a href="https://letspepper.com">Let's Pepper</a></li>
+                            <li><a href="https://630volleyball.app">630 Volleyball</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Infrastructure</h4>
+                        <ul>
+                            <li><a href="https://rallyhq.app">Rally HQ</a></li>
+                            <li><a href="https://volleyrx.com">VolleyRX</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Media & R&D</h4>
+                        <ul>
+                            <li><a href="https://flickdaymedia.com">Flickday Media</a></li>
+                            <li><a href="https://ninochavez.co">Nino Chavez</a></li>
+                            <li><a href="https://zerospecs.app">Zero Specs</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-legal">&copy; 2025 Signal X Studio, LLC. All brand names are registered DBAs of Signal X Studio, LLC.</p>
+                <div class="footer-social">
+                    <a href="mailto:nino@signalx.studio">Email</a>
+                    <a href="https://www.linkedin.com/in/ninochavez">LinkedIn</a>
+                    <a href="https://github.com/nino-chavez">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script>
         const scheduleSessionButton = document.getElementById('scheduleSessionButton');
@@ -1263,19 +1043,15 @@
         let eventTypeRequest = null;
 
         const fetchPrimaryEventTypeSlug = async () => {
-            if (cachedEventTypeSlug) {
-                return cachedEventTypeSlug;
-            }
+            if (cachedEventTypeSlug) return cachedEventTypeSlug;
 
             if (!eventTypeRequest) {
                 eventTypeRequest = fetch('/api/cal-event-types')
                     .then(async (response) => {
                         if (!response.ok) {
                             const errorResult = await response.json().catch(() => ({}));
-                            const message = errorResult?.error || 'Unable to load scheduling availability.';
-                            throw new Error(message);
+                            throw new Error(errorResult?.error || 'Unable to load scheduling availability.');
                         }
-
                         return response.json();
                     })
                     .catch((error) => {
@@ -1287,27 +1063,22 @@
 
             const data = await eventTypeRequest;
             const eventTypes = data?.eventTypes || [];
-            const primaryEvent = eventTypes.find((eventType) => Boolean(eventType?.slug)) || eventTypes[0];
+            const primaryEvent = eventTypes.find((et) => Boolean(et?.slug)) || eventTypes[0];
 
-            if (!primaryEvent?.slug) {
-                throw new Error('No active event types available right now.');
-            }
+            if (!primaryEvent?.slug) throw new Error('No active event types available right now.');
 
             cachedEventTypeSlug = primaryEvent.slug;
             return cachedEventTypeSlug;
         };
 
         const ensureCalEmbed = () => {
-            if (window.Cal) {
-                return Promise.resolve(window.Cal);
-            }
+            if (window.Cal) return Promise.resolve(window.Cal);
 
             return new Promise((resolve, reject) => {
-                const existingScript = document.querySelector('script[data-cal-embed]');
-
-                if (existingScript) {
-                    existingScript.addEventListener('load', () => resolve(window.Cal));
-                    existingScript.addEventListener('error', reject);
+                const existing = document.querySelector('script[data-cal-embed]');
+                if (existing) {
+                    existing.addEventListener('load', () => resolve(window.Cal));
+                    existing.addEventListener('error', reject);
                     return;
                 }
 
@@ -1323,101 +1094,79 @@
 
         scheduleSessionButton?.addEventListener('click', async (event) => {
             event.preventDefault();
-
-            if (!scheduleSessionButton) {
-                window.open('https://cal.com/signalxstudio/30min', '_blank');
-                return;
-            }
-
             scheduleSessionButton.disabled = true;
             const originalLabel = scheduleSessionButton.textContent;
-            scheduleSessionButton.textContent = 'Opening Scheduler...';
+            scheduleSessionButton.textContent = 'Opening...';
 
             try {
                 const Cal = await ensureCalEmbed();
-
                 if (typeof Cal === 'function') {
                     const slug = await fetchPrimaryEventTypeSlug();
-
                     Cal('ui', {
                         theme: 'dark',
                         styles: {
                             branding: { brandColor: '#6b88ff' },
-                            text: { primaryColor: '#ffffff', secondaryColor: '#b9c0ff' },
-                            input: { backgroundColor: '#0f1325', textColor: '#ffffff' },
+                            text: { primaryColor: '#ffffff', secondaryColor: '#9090a0' },
+                            input: { backgroundColor: '#0e0e14', textColor: '#ffffff' },
                         },
                     });
-
-                    Cal('open', {
-                        link: `${CAL_USERNAME}/${slug}`,
-                    });
+                    Cal('open', { link: `${CAL_USERNAME}/${slug}` });
                 } else {
                     const slug = await fetchPrimaryEventTypeSlug().catch(() => null);
-                    const target = slug ? `https://cal.com/${CAL_USERNAME}/${slug}` : `https://cal.com/${CAL_USERNAME}`;
-                    window.open(target, '_blank');
+                    window.open(slug ? `https://cal.com/${CAL_USERNAME}/${slug}` : `https://cal.com/${CAL_USERNAME}`, '_blank');
                 }
             } catch (error) {
                 console.error('Failed to load Cal.com scheduler:', error);
-                const fallbackUrl = `https://cal.com/${CAL_USERNAME}`;
-                window.open(fallbackUrl, '_blank');
+                window.open(`https://cal.com/${CAL_USERNAME}`, '_blank');
             } finally {
                 scheduleSessionButton.disabled = false;
-                scheduleSessionButton.textContent = originalLabel || 'Schedule 30-Min Session';
+                scheduleSessionButton.textContent = originalLabel || 'Schedule a Call';
             }
         });
 
-        const labsNewsletterForm = document.getElementById('labsNewsletter');
-        if (labsNewsletterForm) {
-            const emailInput = labsNewsletterForm.querySelector('input[type="email"]');
-            const submitButton = labsNewsletterForm.querySelector('button[type="submit"]');
+        const labsForm = document.getElementById('labsNewsletter');
+        if (labsForm) {
+            const emailInput = labsForm.querySelector('input[type="email"]');
+            const submitBtn = labsForm.querySelector('button[type="submit"]');
             const statusEl = document.getElementById('labsNewsletterStatus');
 
-            const setStatus = (message, type) => {
+            const setStatus = (msg, type) => {
                 if (!statusEl) return;
-                statusEl.textContent = message;
+                statusEl.textContent = msg;
                 statusEl.classList.remove('success', 'error');
-                if (type) {
-                    statusEl.classList.add(type);
-                }
+                if (type) statusEl.classList.add(type);
             };
 
-            labsNewsletterForm.addEventListener('submit', async (event) => {
-                event.preventDefault();
-
+            labsForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
                 const email = emailInput?.value.trim();
                 if (!email) {
-                    setStatus('Enter your email to stay in the loop.', 'error');
+                    setStatus('Enter your email.', 'error');
                     emailInput?.focus();
                     return;
                 }
 
                 try {
-                    submitButton.disabled = true;
-                    submitButton.textContent = 'Subscribing...';
-                    setStatus('Signing you up...', undefined);
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Subscribing...';
+                    setStatus('', undefined);
 
                     const response = await fetch('/api/labs-subscribe', {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
+                        headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ email }),
                     });
 
                     const result = await response.json().catch(() => ({}));
+                    if (!response.ok) throw new Error(result?.error || 'Unable to subscribe. Try again soon.');
 
-                    if (!response.ok) {
-                        const errorMessage = result?.error || 'Unable to subscribe right now. Please try again soon.';
-                        throw new Error(errorMessage);
-                    }
-
-                    setStatus('You\u2019re on the list. We\u2019ll keep you posted.', 'success');
-                    labsNewsletterForm.reset();
+                    setStatus('Subscribed.', 'success');
+                    labsForm.reset();
                 } catch (error) {
-                    setStatus(error instanceof Error ? error.message : 'Something went wrong. Try again later.', 'error');
+                    setStatus(error instanceof Error ? error.message : 'Something went wrong.', 'error');
                 } finally {
-                    submitButton.disabled = false;
-                    submitButton.textContent = 'Subscribe';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Subscribe';
                 }
             });
         }
@@ -1441,13 +1190,11 @@
                 "https://ninochavez.co",
                 "https://zerospecs.app"
             ],
-            "contactPoint": [
-                {
-                    "@type": "ContactPoint",
-                    "contactType": "General",
-                    "email": "nino@signalx.studio"
-                }
-            ]
+            "contactPoint": [{
+                "@type": "ContactPoint",
+                "contactType": "General",
+                "email": "nino@signalx.studio"
+            }]
         }
     </script>
 </body>
