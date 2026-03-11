@@ -256,20 +256,28 @@
         .brand-url {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            font-size: 0.82rem;
-            font-weight: 500;
-            color: var(--text-2);
-            margin-top: 16px;
-            transition: color 200ms;
+            gap: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-1);
+            margin-top: 20px;
+            padding: 7px 14px;
+            border: 1px solid var(--border-hover);
+            border-radius: 4px;
+            transition: background 200ms, border-color 200ms;
         }
 
-        .brand-url:hover { color: var(--text-1); }
+        .brand-card:hover .brand-url,
+        .brand-featured:hover .brand-url,
+        .brand-compact:hover .brand-url {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--text-3);
+        }
 
         .brand-url svg {
-            width: 12px;
-            height: 12px;
-            opacity: 0.5;
+            width: 11px;
+            height: 11px;
+            opacity: 0.6;
         }
 
         /* Brand grid — 2-column for standard brands */
@@ -835,7 +843,7 @@
                     <p class="brand-desc">
                         Built because tournament software was terrible. Handles scheduling, real-time scoring, and bracket progression — phone-first and built for the field.
                     </p>
-                    <span class="brand-url">rallyhq.app <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg></span>
+                    <span class="brand-url">Visit rallyhq.app <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg></span>
                 </div>
                 <div class="brand-featured-aside">
                     <ul>
@@ -855,13 +863,13 @@
                     <div class="brand-name">Let's Pepper</div>
                     <h3 class="brand-title" id="letspepper-heading">Grassroots 3v3 volleyball.</h3>
                     <p class="brand-desc">Underground tournament series. Player-first, raw competition bringing athletes together on the grass.</p>
-                    <span class="brand-url">letspepper.com <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg></span>
+                    <span class="brand-url">Visit letspepper.com <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg></span>
                 </a>
                 <a href="https://630volleyball.app" class="brand-card" data-accent="blue" aria-labelledby="630-heading">
                     <div class="brand-name">630 Volleyball</div>
                     <h3 class="brand-title" id="630-heading">Coaching tools platform.</h3>
                     <p class="brand-desc">E-signatures, competency assessments, and team rankings. Three apps, one design system.</p>
-                    <span class="brand-url">630volleyball.app <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg></span>
+                    <span class="brand-url">Visit 630volleyball.app <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg></span>
                 </a>
             </div>
 
@@ -871,7 +879,7 @@
                     <div class="brand-name">VolleyRX</div>
                     <h3 class="brand-title" id="volleyrx-heading">Volleyball analytics and match data.</h3>
                     <p class="brand-desc">Performance data, match analytics, and competitive insights for players, coaches, and programs.</p>
-                    <span class="brand-url">volleyrx.com <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg></span>
+                    <span class="brand-url">Visit volleyrx.com <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg></span>
                 </a>
                 <div></div>
             </div>
@@ -882,13 +890,13 @@
                     <div class="brand-name">Flickday Media</div>
                     <h3 class="brand-title" id="flickday-heading">Raw, fast, player-first.</h3>
                     <p class="brand-desc">Tournament coverage, reels, and same-day photo drops. Capturing live competition energy.</p>
-                    <span class="brand-url">flickdaymedia.com <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg></span>
+                    <span class="brand-url">Visit flickdaymedia.com <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg></span>
                 </a>
                 <a href="https://ninochavez.co" class="brand-card" data-accent="pink" aria-labelledby="nino-heading">
                     <div class="brand-name">Nino Chavez</div>
                     <h3 class="brand-title" id="nino-heading">Photography, writing, education.</h3>
                     <p class="brand-desc">Action sports photography, the Signal Dispatch blog, and the AI Analyst Academy.</p>
-                    <span class="brand-url">ninochavez.co <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg></span>
+                    <span class="brand-url">Visit ninochavez.co <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg></span>
                 </a>
             </div>
 
@@ -898,7 +906,7 @@
                     <div class="brand-name" id="zerospecs-heading">Zero Specs</div>
                     <p class="brand-desc">Spec-driven prototypes and experimental software.</p>
                 </div>
-                <span class="brand-url">zerospecs.app <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg></span>
+                <span class="brand-url">Visit zerospecs.app <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg></span>
             </a>
         </section>
 
