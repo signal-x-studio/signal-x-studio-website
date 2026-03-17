@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nino Chavez — Signal X Studio</title>
+    <meta name="description" content="Connect with Nino Chavez, founder of Signal X Studio. Photography, software, sports media, and creative technology.">
+    <meta property="og:title" content="Nino Chavez — Signal X Studio">
+    <meta property="og:description" content="Founder of Signal X Studio. Photography, software, sports media, and creative technology.">
+    <meta property="og:type" content="profile">
+    <meta property="og:url" content="https://signalx.studio/card">
+    <meta name="theme-color" content="#08080c">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #08080c;
+            --bg-surface: #0e0e14;
+            --border: #1a1a24;
+            --border-hover: #2a2a38;
+            --text-1: #e8e8ed;
+            --text-2: #9090a0;
+            --text-3: #585868;
+            --accent: #6b88ff;
+            --font-display: "Space Grotesk", system-ui, sans-serif;
+            --font-body: "Inter", system-ui, sans-serif;
+            --font-mono: "JetBrains Mono", monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text-1);
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .card-page {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        /* ─── Header ─── */
+
+        .card-header {
+            text-align: center;
+            padding: 32px 0 28px;
+        }
+
+        .logo-mark {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 16px;
+            display: block;
+        }
+
+        .card-name {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-bottom: 4px;
+        }
+
+        .card-title {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .card-bio {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-2);
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        /* ─── Divider ─── */
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 0;
+        }
+
+        /* ─── Actions ─── */
+
+        .card-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 20px 0;
+        }
+
+        .card-action {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 0;
+            text-decoration: none;
+            color: var(--text-1);
+            transition: border-color 200ms, background 200ms;
+            cursor: pointer;
+        }
+
+        .card-action:hover {
+            border-color: var(--border-hover);
+            background: #111118;
+        }
+
+        .card-action:active {
+            background: #14141e;
+        }
+
+        .action-icon {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            color: var(--accent);
+        }
+
+        .action-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .action-label {
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-1);
+        }
+
+        .action-detail {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-3);
+            letter-spacing: 0.02em;
+            margin-top: 1px;
+        }
+
+        .action-arrow {
+            width: 14px;
+            height: 14px;
+            color: var(--text-3);
+            flex-shrink: 0;
+        }
+
+        /* ─── Save Contact Button ─── */
+
+        .save-contact {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--accent);
+            border: none;
+            border-radius: 0;
+            color: #08080c;
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            cursor: pointer;
+            transition: opacity 200ms;
+            text-decoration: none;
+        }
+
+        .save-contact:hover { opacity: 0.9; }
+        .save-contact:active { opacity: 0.8; }
+
+        .save-icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* ─── Brands ─── */
+
+        .card-brands {
+            padding: 20px 0 8px;
+        }
+
+        .brands-label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-3);
+            margin-bottom: 12px;
+        }
+
+        .brands-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .brand-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            text-decoration: none;
+            color: var(--text-2);
+            border: 1px solid transparent;
+            transition: border-color 200ms, color 200ms;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .brand-link:hover {
+            border-color: var(--border);
+            color: var(--text-1);
+        }
+
+        .brand-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .brand-name-sm {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ─── Footer ─── */
+
+        .card-footer {
+            text-align: center;
+            padding: 20px 0 8px;
+        }
+
+        .card-footer p {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-3);
+            letter-spacing: 0.04em;
+        }
+
+        .card-footer a {
+            color: var(--text-3);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .card-footer a:hover { color: var(--text-2); }
+    </style>
+</head>
+<body>
+    <div class="card-page">
+        <!-- Header -->
+        <div class="card-header">
+            <svg class="logo-mark" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <defs>
+                    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#6366f1"/>
+                        <stop offset="50%" stop-color="#8b5cf6"/>
+                        <stop offset="100%" stop-color="#a855f7"/>
+                    </linearGradient>
+                </defs>
+                <path d="M40 36 L64 64 L40 92" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M88 36 L64 64 L88 92" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="64" cy="64" r="8" fill="url(#g)"/>
+                <circle cx="64" cy="64" r="16" fill="none" stroke="url(#g)" stroke-width="2" opacity="0.6"/>
+                <circle cx="64" cy="64" r="24" fill="none" stroke="url(#g)" stroke-width="2" opacity="0.4"/>
+            </svg>
+            <div class="card-name">Nino Chavez</div>
+            <div class="card-title">Founder / Operator</div>
+            <p class="card-bio">Designer who codes. Photographer who builds. Running seven brands from Chicago under Signal X Studio.</p>
+        </div>
+
+        <!-- Save Contact -->
+        <a class="save-contact" href="/card/nino-chavez.vcf" download="nino-chavez.vcf">
+            <svg class="save-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            Save Contact
+        </a>
+
+        <div class="divider" style="margin-top: 20px;"></div>
+
+        <!-- Quick Actions -->
+        <div class="card-actions">
+            <a class="card-action" href="mailto:nino@signalx.studio">
+                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+                <div class="action-content">
+                    <div class="action-label">Email</div>
+                    <div class="action-detail">nino@signalx.studio</div>
+                </div>
+                <svg class="action-arrow" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg>
+            </a>
+
+            <a class="card-action" href="https://ninochavez.co" target="_blank" rel="noopener">
+                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+                <div class="action-content">
+                    <div class="action-label">Portfolio</div>
+                    <div class="action-detail">ninochavez.co</div>
+                </div>
+                <svg class="action-arrow" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg>
+            </a>
+
+            <a class="card-action" href="https://photography.ninochavez.co" target="_blank" rel="noopener">
+                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                <div class="action-content">
+                    <div class="action-label">Photography</div>
+                    <div class="action-detail">photography.ninochavez.co</div>
+                </div>
+                <svg class="action-arrow" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg>
+            </a>
+
+            <a class="card-action" href="https://blog.ninochavez.co" target="_blank" rel="noopener">
+                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                <div class="action-content">
+                    <div class="action-label">Signal Dispatch</div>
+                    <div class="action-detail">blog.ninochavez.co</div>
+                </div>
+                <svg class="action-arrow" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg>
+            </a>
+
+            <a class="card-action" href="https://www.linkedin.com/in/nino-chavez/" target="_blank" rel="noopener">
+                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                <div class="action-content">
+                    <div class="action-label">LinkedIn</div>
+                    <div class="action-detail">in/nino-chavez</div>
+                </div>
+                <svg class="action-arrow" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg>
+            </a>
+
+            <a class="card-action" href="https://github.com/nino-chavez" target="_blank" rel="noopener">
+                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+                <div class="action-content">
+                    <div class="action-label">GitHub</div>
+                    <div class="action-detail">nino-chavez</div>
+                </div>
+                <svg class="action-arrow" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg>
+            </a>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Brands -->
+        <div class="card-brands">
+            <div class="brands-label">Signal X Studio Brands</div>
+            <div class="brands-grid">
+                <a class="brand-link" href="https://rallyhq.app" target="_blank" rel="noopener">
+                    <span class="brand-dot" style="background:#6366f1"></span>
+                    <span class="brand-name-sm">Rally HQ</span>
+                </a>
+                <a class="brand-link" href="https://630volleyball.app" target="_blank" rel="noopener">
+                    <span class="brand-dot" style="background:#3b82f6"></span>
+                    <span class="brand-name-sm">630 Volleyball</span>
+                </a>
+                <a class="brand-link" href="https://letspepper.com" target="_blank" rel="noopener">
+                    <span class="brand-dot" style="background:#f97316"></span>
+                    <span class="brand-name-sm">Let's Pepper</span>
+                </a>
+                <a class="brand-link" href="https://volleyrx.com" target="_blank" rel="noopener">
+                    <span class="brand-dot" style="background:#22c55e"></span>
+                    <span class="brand-name-sm">VolleyRX</span>
+                </a>
+                <a class="brand-link" href="https://flickdaymedia.com" target="_blank" rel="noopener">
+                    <span class="brand-dot" style="background:#facc15"></span>
+                    <span class="brand-name-sm">Flickday Media</span>
+                </a>
+                <a class="brand-link" href="https://zerospecs.app" target="_blank" rel="noopener">
+                    <span class="brand-dot" style="background:#00e0d6"></span>
+                    <span class="brand-name-sm">Zero Specs</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Footer -->
+        <div class="card-footer">
+            <p>&copy; 2025 <a href="https://signalx.studio">Signal X Studio, LLC</a> &middot; Chicago, IL</p>
+        </div>
+    </div>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Nino Chavez",
+        "jobTitle": "Founder",
+        "worksFor": {
+            "@type": "Organization",
+            "name": "Signal X Studio, LLC",
+            "url": "https://signalx.studio"
+        },
+        "url": "https://ninochavez.co",
+        "email": "nino@signalx.studio",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Chicago",
+            "addressRegion": "IL"
+        },
+        "sameAs": [
+            "https://www.linkedin.com/in/nino-chavez/",
+            "https://github.com/nino-chavez",
+            "https://ninochavez.co",
+            "https://photography.ninochavez.co",
+            "https://blog.ninochavez.co"
+        ]
+    }
+    </script>
+</body>
+</html>
